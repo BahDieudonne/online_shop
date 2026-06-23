@@ -1,1 +1,0 @@
-import{n as e,t}from"./jsx-runtime-CdvZGgm7.js";import{Z as n,q as r}from"./index-CuQGZv7p.js";import i from"./ShopPage-CVUxSg7B.js";e();var a=t(),o=()=>{let[e]=n(),t=e.get(`q`);return(0,a.jsxs)(a.Fragment,{children:[(0,a.jsx)(r,{children:(0,a.jsxs)(`title`,{children:[t?`"${t}" — Search`:`Search`,` | CHANCELOR STORE`]})}),(0,a.jsx)(i,{})]})};export{o as default};
