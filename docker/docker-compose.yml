@@ -1,0 +1,63 @@
+version: '3.9'
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: chancelor-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-changeme}
+      MONGO_INITDB_DATABASE: chancelor-store
+    volumes:
+      - mongo-data:/data/db
+    ports: ["27017:27017"]
+    networks: [chancelor-net]
+    healthcheck:
+      test: mongosh --eval "db.adminCommand('ping')"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: chancelor-backend
+    restart: unless-stopped
+    env_file: ../backend/.env
+    environment:
+      MONGODB_URI: mongodb://${MONGO_ROOT_USER:-admin}:${MONGO_ROOT_PASSWORD:-changeme}@mongodb:27017/chancelor-store?authSource=admin
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    ports: ["5000:5000"]
+    volumes: [uploads:/app/uploads]
+    networks: [chancelor-net]
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: chancelor-frontend
+    restart: unless-stopped
+    ports: ["3000:80"]
+    depends_on: [backend]
+    networks: [chancelor-net]
+
+  nginx:
+    image: nginx:alpine
+    container_name: chancelor-nginx
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ../nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../nginx/ssl:/etc/nginx/ssl:ro
+    depends_on: [backend, frontend]
+    networks: [chancelor-net]
+
+volumes:
+  mongo-data:
+  uploads:
+networks:
+  chancelor-net:
+    driver: bridge

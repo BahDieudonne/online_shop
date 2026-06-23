@@ -1,0 +1,1 @@
+import{G as e}from"./index-CuQGZv7p.js";var t={createOrder:t=>e.post(`/orders`,t),getOrders:t=>e.get(`/orders`,{params:t}),getOrder:t=>e.get(`/orders/${t}`),cancelOrder:(t,n)=>e.post(`/orders/${t}/cancel`,{reason:n}),updateOrderStatus:(t,n)=>e.patch(`/orders/${t}/status`,n)},n=(t,n)=>e.post(`/coupons/validate`,{code:t,total:n});export{n,t};

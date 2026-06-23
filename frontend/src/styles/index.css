@@ -1,0 +1,115 @@
+/* CHANCELOR STORE — Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-primary: #2d8a2d;
+  --brand-secondary: #f59e0b;
+  --brand-dark: #082e08;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --border-color: #E5E7EB;
+  --bg-surface: #F9FAFB;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text-primary);
+    background: #ffffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+  }
+}
+
+@layer components {
+  /* Product card */
+  .product-card {
+    @apply bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-200;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .product-card:hover {
+    @apply border-brand-200;
+    box-shadow: 0 8px 24px rgba(45,138,45,.12);
+    transform: translateY(-2px);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl
+           transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-gold-500 hover:bg-gold-600 text-white font-semibold px-6 py-3 rounded-xl
+           transition-all duration-200 active:scale-95;
+  }
+  .btn-outline {
+    @apply border-2 border-brand-500 text-brand-600 hover:bg-brand-50 font-semibold
+           px-6 py-3 rounded-xl transition-all duration-200 active:scale-95;
+  }
+  .btn-ghost {
+    @apply text-brand-600 hover:bg-brand-50 font-medium px-4 py-2 rounded-lg transition-all;
+  }
+
+  /* Badge */
+  .badge-sale {
+    @apply bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wide;
+  }
+  .badge-new {
+    @apply bg-brand-500 text-white text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wide;
+  }
+  .badge-flash {
+    @apply bg-gold-500 text-white text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wide;
+  }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply bg-gray-200 rounded animate-pulse;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Input */
+  .form-input {
+    @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm
+           focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent
+           placeholder-gray-400 transition-all;
+  }
+
+  /* Page container */
+  .container-app {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section header */
+  .section-header {
+    @apply flex items-center justify-between mb-6;
+  }
+  .section-title {
+    @apply text-2xl font-display font-bold text-gray-900;
+  }
+
+  /* Flash sale countdown */
+  .countdown-box {
+    @apply bg-red-600 text-white text-lg font-bold px-3 py-1.5 rounded-lg min-w-[2.5rem] text-center;
+  }
+}
+
+/* Swiper overrides */
+.swiper-pagination-bullet-active { background: var(--brand-primary) !important; }
+.swiper-button-next, .swiper-button-prev {
+  color: var(--brand-primary) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    @apply bg-surface-light text-gray-800;
+  }
+  h1,h2,h3 { font-family: 'Playfair Display', Georgia, serif; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-purple text-white px-6 py-3 rounded-lg font-semibold
+           hover:bg-primary-800 active:scale-95 transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-brand-purple focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply border-2 border-brand-purple text-brand-purple px-6 py-3 rounded-lg
+           font-semibold hover:bg-brand-purple hover:text-white transition-all duration-200;
+  }
+  .btn-gold {
+    @apply bg-brand-gold text-gray-900 px-6 py-3 rounded-lg font-bold
+           hover:bg-yellow-500 active:scale-95 transition-all duration-200
+           shadow-md hover:shadow-lg;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-card hover:shadow-hover transition-shadow duration-300;
+  }
+  .input {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2
+           focus:ring-brand-purple focus:border-transparent outline-none transition;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .price-display {
+    @apply text-xl font-bold text-brand-navy;
+  }
+  .price-original {
+    @apply text-sm text-gray-400 line-through;
+  }
+  .discount-badge {
+    @apply badge bg-red-100 text-red-700;
+  }
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .section-title {
+    @apply text-2xl md:text-3xl font-display font-bold text-brand-navy;
+  }
+  .nav-link {
+    @apply text-gray-700 hover:text-brand-purple font-medium transition-colors duration-150;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #9575cd; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #7b1fa2; }
+
+/* Product image hover zoom */
+.product-image-wrapper { overflow: hidden; }
+.product-image-wrapper img { transition: transform 0.4s ease; }
+.product-image-wrapper:hover img { transform: scale(1.05); }
+
+/* Skeleton loading animation */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
