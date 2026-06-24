@@ -65,16 +65,23 @@ app.use((req, res) => res.status(404).json({ message: `Route ${req.url} not foun
 // Error handler
 app.use(errorHandler);
 
-// DB + server start
-mongoose.connect(process.env.MONGODB_URI, {
-  maxPoolSize: 10, serverSelectionTimeoutMS: 5000,
-}).then(() => {
-  console.log('✅ MongoDB connected');
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => console.log(`🚀 CHANCELOR STORE API running on port ${PORT}`));
-}).catch(err => {
-  console.error('❌ MongoDB connection failed:', err.message);
-  process.exit(1);
-});
+// DB + server start — skipped when Vercel imports this as a serverless handler
+if (require.main === module) {
+  mongoose.connect(process.env.MONGODB_URI, {
+    maxPoolSize: 10, serverSelectionTimeoutMS: 5000,
+  }).then(() => {
+    console.log('✅ MongoDB connected');
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`🚀 CHANCELOR STORE API running on port ${PORT}`));
+  }).catch(err => {
+    console.error('❌ MongoDB connection failed:', err.message);
+    process.exit(1);
+  });
+} else {
+  // Serverless: establish DB connection at cold start
+  mongoose.connect(process.env.MONGODB_URI, {
+    maxPoolSize: 10, serverSelectionTimeoutMS: 5000,
+  }).catch(err => console.error('❌ MongoDB connection failed:', err.message));
+}
 
 module.exports = app;
