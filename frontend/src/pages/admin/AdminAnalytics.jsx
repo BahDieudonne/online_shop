@@ -56,9 +56,9 @@ export default function AdminAnalytics() {
     try {
       setLoading(true);
       const res = await api.get(`/analytics/dashboard?range=${range}`);
-      setData(res.data);
-    } catch (err) {
-      // Use placeholder data for demo
+      // Backend wraps response: { success, data: {...} } — extract the inner data
+      setData(res.data?.data ?? getMockData(range));
+    } catch {
       setData(getMockData(range));
     } finally {
       setLoading(false);
@@ -109,7 +109,7 @@ export default function AdminAnalytics() {
     } catch {}
   };
 
-  if (loading) return <div className="flex justify-center py-20"><Spinner size="lg" /></div>;
+  if (loading || !data) return <div className="flex justify-center py-20"><Spinner size="lg" /></div>;
 
   const { summary, revenueData, paymentMethods, topProducts, categoryRevenue, ordersByStatus } = data;
 

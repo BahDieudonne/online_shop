@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   HomeIcon, ShoppingBagIcon, TagIcon, ShoppingCartIcon,
   UsersIcon, TicketIcon, ChartBarIcon, MegaphoneIcon,
   DocumentTextIcon, ArrowLeftOnRectangleIcon, Bars3Icon,
-  XMarkIcon, CogIcon, BellIcon, CubeIcon,
+  XMarkIcon, CogIcon, BellIcon, CubeIcon, CheckIcon,
 } from '@heroicons/react/24/outline';
 import { logout } from '../../redux/slices/authSlice';
-import { Toaster } from 'react-hot-toast';
+import api from '../../services/api';
 
 const NAV = [
   { label: 'Dashboard', icon: HomeIcon, path: '/admin' },
@@ -29,6 +29,42 @@ const AdminLayout = () => {
   const navigate = useNavigate();
   const { user } = useSelector((s) => s.auth);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const notifRef = useRef(null);
+
+  useEffect(() => {
+    api.get('/notifications').then(res => {
+      const list = res.data?.data || [];
+      setNotifications(list);
+      setUnreadCount(list.filter(n => !n.isRead).length);
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (notifRef.current && !notifRef.current.contains(e.target)) setNotifOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const markAllRead = async () => {
+    try {
+      await api.patch('/notifications/read-all');
+      setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+      setUnreadCount(0);
+    } catch {}
+  };
+
+  const markRead = async (id) => {
+    try {
+      await api.patch(`/notifications/${id}/read`);
+      setNotifications(prev => prev.map(n => n._id === id ? { ...n, isRead: true } : n));
+      setUnreadCount(prev => Math.max(0, prev - 1));
+    } catch {}
+  };
 
   const handleLogout = () => {
     dispatch(logout());
@@ -135,10 +171,66 @@ const AdminLayout = () => {
             <h1 className="font-display font-semibold text-navy-800 text-lg hidden md:block">Admin Panel</h1>
           </div>
           <div className="flex items-center gap-3">
-            <button className="relative p-2 text-gray-500 hover:text-navy-700 transition-colors">
-              <BellIcon className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
+            {/* Notification bell */}
+            <div className="relative" ref={notifRef}>
+              <button
+                onClick={() => setNotifOpen(o => !o)}
+                className="relative p-2 text-gray-500 hover:text-navy-700 transition-colors"
+              >
+                <BellIcon className="w-5 h-5" />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full text-white text-[9px] flex items-center justify-center font-bold">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
+              </button>
+
+              {notifOpen && (
+                <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl border border-gray-200 shadow-xl z-50 overflow-hidden">
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                    <h3 className="font-semibold text-gray-900 text-sm">Notifications</h3>
+                    {unreadCount > 0 && (
+                      <button onClick={markAllRead} className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+                        <CheckIcon className="w-3 h-3" /> Mark all read
+                      </button>
+                    )}
+                  </div>
+                  <div className="max-h-80 overflow-y-auto divide-y divide-gray-50">
+                    {notifications.length === 0 ? (
+                      <div className="px-4 py-8 text-center text-sm text-gray-400">
+                        <BellIcon className="w-8 h-8 mx-auto mb-2 text-gray-300" />
+                        No notifications yet
+                      </div>
+                    ) : (
+                      notifications.slice(0, 10).map(n => (
+                        <button
+                          key={n._id}
+                          onClick={() => { markRead(n._id); if (n.link) navigate(n.link); setNotifOpen(false); }}
+                          className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors ${!n.isRead ? 'bg-indigo-50/40' : ''}`}
+                        >
+                          <div className="flex items-start gap-3">
+                            {!n.isRead && <span className="w-2 h-2 rounded-full bg-indigo-500 mt-1.5 flex-shrink-0" />}
+                            <div className={!n.isRead ? '' : 'pl-5'}>
+                              <p className="text-sm font-medium text-gray-900 line-clamp-1">{n.title}</p>
+                              <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{n.message}</p>
+                              <p className="text-[10px] text-gray-400 mt-1">
+                                {new Date(n.createdAt).toLocaleString('fr-CM', { dateStyle: 'short', timeStyle: 'short' })}
+                              </p>
+                            </div>
+                          </div>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                  {notifications.length > 10 && (
+                    <div className="border-t border-gray-100 px-4 py-2 text-center">
+                      <span className="text-xs text-gray-400">Showing 10 of {notifications.length}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-navy-600 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </div>
@@ -151,7 +243,6 @@ const AdminLayout = () => {
         </main>
       </div>
 
-      <Toaster position="top-right" />
     </div>
   );
 };
