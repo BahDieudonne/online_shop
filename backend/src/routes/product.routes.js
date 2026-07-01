@@ -57,6 +57,15 @@ router.patch('/:id/stock', authenticate, isStaff, async (req, res, next) => {
 
 router.get('/:id', optionalAuth, getProduct);
 
+// Track product view (increments analytics.views)
+router.post('/:id/view', optionalAuth, async (req, res, next) => {
+  try {
+    const Product = require('../models/Product');
+    await Product.findByIdAndUpdate(req.params.id, { $inc: { 'analytics.views': 1 } });
+    res.json({ success: true });
+  } catch (err) { next(err); }
+});
+
 router.post('/', authenticate, isAdmin, createProduct);
 router.put('/:id', authenticate, isAdmin, updateProduct);
 router.delete('/:id', authenticate, isAdmin, deleteProduct);

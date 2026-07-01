@@ -4,13 +4,13 @@ import { toggleCart } from '../redux/slices/uiSlice';
 
 export const useCart = () => {
   const dispatch = useDispatch();
-  const { items, discount, couponCode, loading } = useSelector(s => s.cart);
+  const { items, coupon, couponDiscount, loading } = useSelector(s => s.cart);
   const total = useSelector(selectCartTotal);
   const count = useSelector(selectCartCount);
   const isOpen = useSelector(s => s.ui.cartOpen);
 
   return {
-    items, discount, couponCode, loading, total, count, isOpen,
+    items, coupon, couponDiscount, loading, total, count, isOpen,
     add:    (data) => dispatch(addToCart(data)),
     remove: (id)   => dispatch(removeFromCart(id)),
     update: (id, qty) => dispatch(updateCartItem({ itemId: id, quantity: qty })),

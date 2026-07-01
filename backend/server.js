@@ -40,6 +40,7 @@ app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
 
 // Routes
+app.use('/api/upload', require('./src/routes/upload'));
 app.use('/api/auth', require('./src/routes/auth.routes'));
 app.use('/api/products', require('./src/routes/product.routes'));
 app.use('/api/categories', require('./src/routes/categories'));

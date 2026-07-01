@@ -6,12 +6,12 @@ import orderService from '../services/orderService';
 import { formatCurrency } from '../utils/formatters';
 
 const OrderConfirmationPage = () => {
-  const { orderId } = useParams();
+  const { id } = useParams();
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    orderService.getOrderById(orderId).then((r) => setOrder(r.data?.data?.order)).catch(() => {});
-  }, [orderId]);
+    if (id) orderService.getOrder(id).then((r) => setOrder(r.data?.data)).catch(() => {});
+  }, [id]);
 
   return (
     <>

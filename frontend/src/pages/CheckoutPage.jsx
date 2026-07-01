@@ -65,8 +65,8 @@ const CheckoutPage = () => {
           : {}),
       };
       const res = await orderService.createOrder(orderData);
-      const order = res.data?.data?.order;
-      navigate(`/order-confirmation/${order._id}`);
+      const order = res.data?.data;
+      navigate(`/order/success/${order._id}`);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to place order');
     } finally {

@@ -87,7 +87,12 @@ function App() {
   return (
     <Provider store={store}>
       <HelmetProvider>
-        <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
+        <Toaster position="top-right" toastOptions={{
+          duration: 3500,
+          style: { borderRadius: '10px', fontFamily: 'Inter, sans-serif', fontSize: '14px' },
+          success: { style: { background: '#1a237e', color: '#fff' } },
+          error: { style: { background: '#dc2626', color: '#fff' } },
+        }} />
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <AuthGate>
           <Suspense fallback={<PageLoader />}>

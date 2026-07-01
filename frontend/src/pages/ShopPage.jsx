@@ -153,7 +153,7 @@ const ShopPage = () => {
           <div className="flex-1 min-w-0">
             <ProductGrid
               products={products}
-              loading={loading.products}
+              loading={loading.fetch}
               cols={viewMode === 'grid' ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}
             />
             {pagination && pagination.totalPages > 1 && (

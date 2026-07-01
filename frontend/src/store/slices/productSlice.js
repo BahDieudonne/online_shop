@@ -26,23 +26,33 @@ const productSlice = createSlice({
   name: 'products',
   initialState: {
     items: [], featured: [], newArrivals: [], bestSellers: [],
-    loading: false, error: null, pagination: null,
+    loading: { fetch: false, featured: false, newArrivals: false, bestSellers: false },
+    error: null, pagination: null,
   },
   reducers: {},
   extraReducers: (b) => {
     b
-      .addCase(fetchProducts.pending, (state) => { state.loading = true; })
+      .addCase(fetchProducts.pending,   (state) => { state.loading.fetch = true; })
       .addCase(fetchProducts.fulfilled, (state, { payload }) => {
         state.items = payload.products || [];
         state.pagination = payload.pagination || null;
-        state.loading = false;
+        state.loading.fetch = false;
       })
-      .addCase(fetchProducts.rejected, (state, { error }) => {
-        state.loading = false; state.error = error.message;
+      .addCase(fetchProducts.rejected,  (state, { error }) => {
+        state.loading.fetch = false; state.error = error.message;
       })
-      .addCase(fetchFeatured.fulfilled, (state, { payload }) => { state.featured = payload; })
-      .addCase(fetchNewArrivals.fulfilled, (state, { payload }) => { state.newArrivals = payload; })
-      .addCase(fetchBestSellers.fulfilled, (state, { payload }) => { state.bestSellers = payload; });
+      .addCase(fetchFeatured.pending,   (state) => { state.loading.featured = true; })
+      .addCase(fetchFeatured.fulfilled, (state, { payload }) => {
+        state.featured = payload; state.loading.featured = false;
+      })
+      .addCase(fetchNewArrivals.pending,   (state) => { state.loading.newArrivals = true; })
+      .addCase(fetchNewArrivals.fulfilled, (state, { payload }) => {
+        state.newArrivals = payload; state.loading.newArrivals = false;
+      })
+      .addCase(fetchBestSellers.pending,   (state) => { state.loading.bestSellers = true; })
+      .addCase(fetchBestSellers.fulfilled, (state, { payload }) => {
+        state.bestSellers = payload; state.loading.bestSellers = false;
+      });
   },
 });
 
