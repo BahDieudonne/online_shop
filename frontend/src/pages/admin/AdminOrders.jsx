@@ -26,8 +26,8 @@ const AdminOrders = () => {
     setLoading(true);
     try {
       const res = await orderService.getAllOrders({ search, status, page, limit: 20 });
-      setOrders(res.data?.data?.orders || []);
-      setPagination(res.data?.data?.pagination || null);
+      setOrders(res.data?.data || []);
+      setPagination(res.data?.pagination || null);
     } catch { toast.error('Failed to load orders'); }
     finally { setLoading(false); }
   }, [search, status, page]);
@@ -69,10 +69,10 @@ const AdminOrders = () => {
                   {orders.map((o) => (
                     <tr key={o._id} className="hover:bg-gray-50">
                       <td className="px-4 py-3 font-mono text-xs text-navy-600 font-medium">#{o.orderNumber}</td>
-                      <td className="px-4 py-3 text-gray-700">{o.user?.firstName} {o.user?.lastName}</td>
+                      <td className="px-4 py-3 text-gray-700">{o.customer?.firstName} {o.customer?.lastName}</td>
                       <td className="px-4 py-3 text-gray-600">{o.items?.length} item(s)</td>
-                      <td className="px-4 py-3 font-medium text-navy-800">{formatCurrency(o.totalAmount)}</td>
-                      <td className="px-4 py-3 text-gray-600 capitalize">{o.paymentMethod?.replace('_', ' ')}</td>
+                      <td className="px-4 py-3 font-medium text-navy-800">{formatCurrency(o.pricing?.total)}</td>
+                      <td className="px-4 py-3 text-gray-600 capitalize">{o.payment?.method?.replace('_', ' ')}</td>
                       <td className="px-4 py-3"><Badge variant={STATUS_COLORS[o.status] || 'secondary'} size="sm">{o.status}</Badge></td>
                       <td className="px-4 py-3 text-gray-500 text-xs">{formatDate(o.createdAt)}</td>
                       <td className="px-4 py-3"><Link to={`/admin/orders/${o._id}`} className="text-navy-600 hover:underline text-xs font-medium">View</Link></td>
@@ -83,7 +83,7 @@ const AdminOrders = () => {
             </div>
           )}
         </div>
-        {pagination?.totalPages > 1 && <Pagination currentPage={page} totalPages={pagination.totalPages} onPageChange={setPage} />}
+        {pagination?.pages > 1 && <Pagination currentPage={page} totalPages={pagination.pages} onPageChange={setPage} />}
       </div>
     </>
   );

@@ -26,8 +26,8 @@ const AdminProducts = () => {
     setLoading(true);
     try {
       const res = await productService.getAdminProducts({ search, status, page, limit: 20 });
-      setProducts(res.data?.data?.products || []);
-      setPagination(res.data?.data?.pagination || null);
+      setProducts(res.data?.data || []);
+      setPagination(res.data?.pagination || null);
     } catch { toast.error('Failed to load products'); }
     finally { setLoading(false); }
   }, [search, status, page]);
@@ -193,8 +193,8 @@ const AdminProducts = () => {
           )}
         </div>
 
-        {pagination && pagination.totalPages > 1 && (
-          <Pagination currentPage={page} totalPages={pagination.totalPages} onPageChange={setPage} />
+        {pagination && pagination.pages > 1 && (
+          <Pagination currentPage={page} totalPages={pagination.pages} onPageChange={setPage} />
         )}
       </div>
     </>

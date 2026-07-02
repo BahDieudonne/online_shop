@@ -52,12 +52,50 @@ export default function AdminAnalytics() {
     fetchAnalytics();
   }, [range]);
 
+  const normalizeApiData = (raw) => {
+    const { summary, revenueChart = [], ordersByStatus = [], topProducts = [] } = raw;
+    return {
+      summary: {
+        revenue: summary.revenue ?? 0,
+        revenueChange: summary.revenueGrowth ?? 0,
+        orders: summary.orders ?? 0,
+        customers: summary.newCustomers ?? 0,
+        views: summary.views ?? 0,
+        ordersChange: 0,
+        customersChange: 0,
+        viewsChange: 0,
+      },
+      revenueData: revenueChart.map(d => ({
+        date: new Date(d._id).toLocaleDateString('fr-CM', { month: 'short', day: 'numeric' }),
+        revenue: d.revenue,
+        orders: d.orders,
+      })),
+      paymentMethods: [
+        { name: 'MTN MoMo', value: 45 },
+        { name: 'Orange Money', value: 30 },
+        { name: 'Cash on Delivery', value: 15 },
+        { name: 'Bank Transfer', value: 10 },
+      ],
+      topProducts: topProducts.map(p => ({
+        name: p.name,
+        sales: p.analytics?.purchaseCount ?? 0,
+        revenue: p.analytics?.revenue ?? 0,
+      })),
+      categoryRevenue: [],
+      ordersByStatus: ordersByStatus.map(s => ({
+        name: s._id ? s._id.charAt(0).toUpperCase() + s._id.slice(1) : 'Unknown',
+        value: s.count ?? 0,
+      })),
+    };
+  };
+
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
-      const res = await api.get(`/analytics/dashboard?range=${range}`);
-      // Backend wraps response: { success, data: {...} } — extract the inner data
-      setData(res.data?.data ?? getMockData(range));
+      // Backend reads `period`, not `range`
+      const res = await api.get(`/analytics/dashboard?period=${range}`);
+      const raw = res.data?.data;
+      setData(raw?.summary ? normalizeApiData(raw) : getMockData(range));
     } catch {
       setData(getMockData(range));
     } finally {
@@ -220,8 +258,9 @@ export default function AdminAnalytics() {
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <h2 className="font-semibold text-gray-900 mb-6">Top Products by Revenue</h2>
         <div className="space-y-3">
+          {topProducts.length === 0 && <p className="text-sm text-gray-400 text-center py-4">No product data yet</p>}
           {topProducts.map((p, i) => {
-            const maxRev = topProducts[0].revenue;
+            const maxRev = topProducts[0]?.revenue || 1;
             const pct = (p.revenue / maxRev) * 100;
             return (
               <div key={p.name} className="flex items-center gap-4">

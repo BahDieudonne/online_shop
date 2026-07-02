@@ -9,6 +9,7 @@ import { checkAuth } from './redux/slices/authSlice';
 import CustomerLayout from './components/layout/CustomerLayout';
 import AdminLayout from './components/layout/AdminLayout';
 import { ProtectedRoute, GuestRoute, AdminRoute } from './components/auth/ProtectedRoute';
+import { SettingsProvider } from './context/SettingsContext';
 
 // Eagerly loaded (critical path)
 import HomePage from './pages/HomePage';
@@ -86,6 +87,7 @@ function AuthGate({ children }) {
 function App() {
   return (
     <Provider store={store}>
+      <SettingsProvider>
       <HelmetProvider>
         <Toaster position="top-right" toastOptions={{
           duration: 3500,
@@ -156,6 +158,7 @@ function App() {
           </AuthGate>
         </Router>
       </HelmetProvider>
+      </SettingsProvider>
     </Provider>
   );
 }

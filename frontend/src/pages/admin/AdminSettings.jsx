@@ -5,6 +5,8 @@ import {
 } from '@heroicons/react/24/outline';
 import Spinner from '../../components/common/Spinner';
 import api from '../../services/api';
+import toast from 'react-hot-toast';
+import { useSettings } from '../../context/SettingsContext';
 
 const TABS = [
   { key: 'general', label: 'General', icon: GlobeAltIcon },
@@ -21,6 +23,7 @@ export default function AdminSettings() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const { refreshSettings } = useSettings();
 
   useEffect(() => {
     fetchSettings();
@@ -30,7 +33,7 @@ export default function AdminSettings() {
     try {
       setLoading(true);
       const res = await api.get(`/settings/${tab}`);
-      setSettings(res.data || {});
+      setSettings(res.data?.data || getDefaults(tab));
     } catch {
       // Use defaults if endpoint not yet implemented
       setSettings(getDefaults(tab));
@@ -76,8 +79,11 @@ export default function AdminSettings() {
       await api.put(`/settings/${tab}`, settings);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
+      toast.success('Settings saved!');
+      refreshSettings();
     } catch (err) {
       console.error(err);
+      toast.error('Failed to save settings');
     } finally { setSaving(false); }
   };
 

@@ -12,6 +12,7 @@ import {
   ChevronDownIcon,
 } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as CartSolid } from '@heroicons/react/24/solid';
+import { useTranslation } from 'react-i18next';
 import { toggleCart, setMobileMenuOpen, toggleMobileMenu } from '../../redux/slices/uiSlice';
 import { logout } from '../../redux/slices/authSlice';
 import { selectCartCount } from '../../redux/slices/cartSlice';
@@ -19,19 +20,11 @@ import { selectWishlistCount } from '../../redux/slices/wishlistSlice';
 import { useDebounce } from '../../hooks/useDebounce';
 import productService from '../../services/productService';
 
-const NAV_LINKS = [
-  { label: 'Home', path: '/' },
-  { label: 'Shop', path: '/shop' },
-  { label: 'Categories', path: '/shop' },
-  { label: 'Blog', path: '/blog' },
-  { label: 'About', path: '/about' },
-  { label: 'Contact', path: '/contact' },
-];
-
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
   const { user, isAuthenticated } = useSelector((s) => s.auth);
   const { mobileMenuOpen } = useSelector((s) => s.ui);
   const cartCount = useSelector(selectCartCount);
@@ -45,6 +38,15 @@ const Header = () => {
   const debouncedSearch = useDebounce(searchQuery, 300);
   const searchRef = useRef(null);
   const userMenuRef = useRef(null);
+
+  // NAV_LINKS defined inside component so it reacts to language changes
+  const NAV_LINKS = [
+    { label: t('nav.home'), path: '/' },
+    { label: t('nav.shop'), path: '/shop' },
+    { label: t('nav.blog'), path: '/blog' },
+    { label: t('nav.about'), path: '/about' },
+    { label: t('nav.contact'), path: '/contact' },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -92,15 +94,19 @@ const Header = () => {
     navigate('/');
   };
 
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language === 'fr' ? 'en' : 'fr');
+  };
+
   return (
     <>
       {/* Top bar */}
       <div className="bg-navy-900 text-white text-xs py-1.5 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <span>🇨🇲 Livraison partout au Cameroun | Free delivery over 50,000 FCFA</span>
+          <span>🇨🇲 Livraison partout au Cameroun | {t('nav.freeDelivery')}</span>
           <div className="flex gap-4">
-            <Link to="/track-order" className="hover:text-gold-400 transition-colors">Track Order</Link>
-            <Link to="/help" className="hover:text-gold-400 transition-colors">Help Center</Link>
+            <Link to="/track-order" className="hover:text-gold-400 transition-colors">{t('nav.trackOrder')}</Link>
+            <Link to="/help" className="hover:text-gold-400 transition-colors">{t('nav.helpCenter')}</Link>
             <span>📞 +237 674 962 803</span>
           </div>
         </div>
@@ -129,7 +135,7 @@ const Header = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                  placeholder="Search products, brands, categories..."
+                  placeholder={t('common.searchPlaceholder')}
                   className="w-full border-2 border-navy-200 rounded-l-lg px-4 py-2 text-sm focus:outline-none focus:border-navy-500 transition-colors"
                 />
                 <button
@@ -169,6 +175,15 @@ const Header = () => {
 
             {/* Right icons */}
             <div className="flex items-center gap-1 flex-shrink-0">
+              {/* Language toggle */}
+              <button
+                onClick={toggleLanguage}
+                className="hidden md:flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-navy-700 px-2 py-1 rounded border border-gray-200 hover:border-navy-300 transition-all"
+                title="Switch language"
+              >
+                {i18n.language === 'fr' ? '🇬🇧 EN' : '🇫🇷 FR'}
+              </button>
+
               {/* Wishlist */}
               <Link to="/account/wishlist" className="relative p-2 text-gray-600 hover:text-purple-600 transition-colors">
                 <HeartIcon className="w-6 h-6" />
@@ -215,19 +230,19 @@ const Header = () => {
                           <p className="text-xs text-gray-500 truncate">{user?.email}</p>
                         </div>
                         <nav className="py-1">
-                          <Link to="/account" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setUserMenuOpen(false)}>My Account</Link>
-                          <Link to="/account/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setUserMenuOpen(false)}>My Orders</Link>
-                          <Link to="/account/wishlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setUserMenuOpen(false)}>Wishlist</Link>
+                          <Link to="/account" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setUserMenuOpen(false)}>{t('nav.myAccount')}</Link>
+                          <Link to="/account/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setUserMenuOpen(false)}>{t('nav.myOrders')}</Link>
+                          <Link to="/account/wishlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" onClick={() => setUserMenuOpen(false)}>{t('nav.wishlist')}</Link>
                           {(user?.role === 'admin' || user?.role === 'super_admin') && (
-                            <Link to="/admin" className="block px-4 py-2 text-sm text-purple-700 font-medium hover:bg-purple-50" onClick={() => setUserMenuOpen(false)}>Admin Panel</Link>
+                            <Link to="/admin" className="block px-4 py-2 text-sm text-purple-700 font-medium hover:bg-purple-50" onClick={() => setUserMenuOpen(false)}>{t('nav.adminPanel')}</Link>
                           )}
-                          <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 border-t">Sign Out</button>
+                          <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 border-t">{t('nav.signOut')}</button>
                         </nav>
                       </>
                     ) : (
                       <div className="p-3 space-y-2">
-                        <Link to="/login" className="btn-primary w-full text-center text-sm block" onClick={() => setUserMenuOpen(false)}>Sign In</Link>
-                        <Link to="/register" className="btn-secondary w-full text-center text-sm block" onClick={() => setUserMenuOpen(false)}>Create Account</Link>
+                        <Link to="/login" className="btn-primary w-full text-center text-sm block" onClick={() => setUserMenuOpen(false)}>{t('nav.signIn')}</Link>
+                        <Link to="/register" className="btn-secondary w-full text-center text-sm block" onClick={() => setUserMenuOpen(false)}>{t('nav.createAccount')}</Link>
                       </div>
                     )}
                   </div>
@@ -260,7 +275,7 @@ const Header = () => {
             ))}
             <div className="ml-auto">
               <Link to="/shop?filter=flash-sale" className="flex items-center gap-1 text-sm font-semibold text-red-600 animate-pulse">
-                🔥 Flash Sale
+                🔥 {t('nav.flashSale')}
               </Link>
             </div>
           </nav>
@@ -281,7 +296,14 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link to="/shop?filter=flash-sale" className="block py-2.5 text-sm font-semibold text-red-600">🔥 Flash Sale</Link>
+              <Link to="/shop?filter=flash-sale" className="block py-2.5 text-sm font-semibold text-red-600">🔥 {t('nav.flashSale')}</Link>
+              {/* Language toggle in mobile menu */}
+              <button
+                onClick={toggleLanguage}
+                className="block w-full text-left py-2.5 text-sm font-medium text-gray-700 border-b border-gray-50"
+              >
+                {i18n.language === 'fr' ? '🇬🇧 Switch to English' : '🇫🇷 Passer en Français'}
+              </button>
             </nav>
           </div>
         )}

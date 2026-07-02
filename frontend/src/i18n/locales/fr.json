@@ -1,0 +1,159 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "shop": "Boutique",
+    "blog": "Blog",
+    "about": "À propos",
+    "contact": "Contact",
+    "flashSale": "Vente Flash",
+    "trackOrder": "Suivre commande",
+    "helpCenter": "Centre d'aide",
+    "myAccount": "Mon compte",
+    "myOrders": "Mes commandes",
+    "wishlist": "Favoris",
+    "adminPanel": "Panneau Admin",
+    "signOut": "Déconnexion",
+    "signIn": "Connexion",
+    "createAccount": "Créer un compte",
+    "freeDelivery": "Livraison gratuite dès 50 000 FCFA"
+  },
+  "common": {
+    "addToCart": "Ajouter au panier",
+    "buyNow": "Acheter maintenant",
+    "search": "Rechercher",
+    "searchPlaceholder": "Rechercher des produits, marques, catégories...",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "continue": "Continuer",
+    "freeShipping": "Livraison gratuite",
+    "outOfStock": "Rupture de stock",
+    "inStock": "En stock",
+    "viewAll": "Voir tout"
+  },
+  "home": {
+    "newsletter": {
+      "title": "Restez informé",
+      "subtitle": "Recevez des offres exclusives, les nouveautés et plus encore.",
+      "placeholder": "Votre adresse email",
+      "subscribe": "S'abonner",
+      "subscribed": "Vous êtes abonné ! Merci."
+    },
+    "sections": {
+      "featuredProducts": "Produits en vedette",
+      "newArrivals": "Nouveaux arrivages",
+      "bestSellers": "Meilleures ventes"
+    }
+  },
+  "shop": {
+    "title": "Boutique",
+    "filters": "Filtres",
+    "sortBy": "Trier par",
+    "noProducts": "Aucun produit trouvé",
+    "loadMore": "Charger plus"
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide",
+    "subtotal": "Sous-total",
+    "shipping": "Livraison",
+    "total": "Total",
+    "checkout": "Passer à la caisse",
+    "free": "Gratuit",
+    "remove": "Supprimer",
+    "quantity": "Quantité",
+    "continueShopping": "Continuer mes achats"
+  },
+  "checkout": {
+    "title": "Commande",
+    "steps": {
+      "shipping": "Livraison",
+      "payment": "Paiement",
+      "review": "Révision"
+    },
+    "shipping": {
+      "title": "Informations de livraison",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "address": "Adresse",
+      "city": "Ville",
+      "region": "Région",
+      "notes": "Notes de livraison (Optionnel)",
+      "continue": "Continuer vers le paiement",
+      "requiredFields": "Veuillez remplir tous les champs obligatoires"
+    },
+    "payment": {
+      "title": "Mode de paiement",
+      "momoHint": "Vous recevrez une demande de paiement sur ce numéro.",
+      "back": "Retour",
+      "continue": "Vérifier la commande"
+    },
+    "review": {
+      "title": "Vérifiez votre commande",
+      "placeOrder": "Passer la commande",
+      "placingOrder": "Commande en cours...",
+      "shippingAddress": "Adresse de livraison",
+      "payment": "Paiement"
+    },
+    "coupon": {
+      "label": "Vous avez un code promo ?",
+      "placeholder": "Code promo",
+      "apply": "Appliquer"
+    },
+    "orderSummary": "Récapitulatif",
+    "subtotal": "Sous-total",
+    "shipping": "Livraison",
+    "couponDiscount": "Réduction coupon",
+    "total": "Total",
+    "items": "articles",
+    "securePayment": "Votre paiement est sécurisé par chiffrement SSL 256 bits",
+    "free": "Gratuit",
+    "failedOrder": "Échec de la commande",
+    "invalidCoupon": "Code promo invalide",
+    "couponApplied": "Code promo appliqué !"
+  },
+  "footer": {
+    "shop": "Boutique",
+    "myAccount": "Mon compte",
+    "helpInfo": "Aide & Infos",
+    "weAccept": "Nous acceptons",
+    "rights": "Tous droits réservés.",
+    "madeIn": "Fait avec ❤️ au Cameroun",
+    "newsletter": {
+      "title": "Restez informé",
+      "subtitle": "Recevez des offres exclusives, les nouveautés et plus encore.",
+      "placeholder": "Votre adresse email",
+      "subscribe": "S'abonner",
+      "subscribed": "Vous êtes abonné ! Merci."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bon retour !",
+      "subtitle": "Connectez-vous pour continuer vos achats",
+      "email": "Adresse email",
+      "password": "Mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "signIn": "Connexion",
+      "noAccount": "Pas encore de compte ?",
+      "createFree": "Créer un compte",
+      "signingIn": "Connexion..."
+    },
+    "register": {
+      "title": "Créez votre compte",
+      "subtitle": "Rejoignez des milliers d'acheteurs au Cameroun",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Adresse email",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "createAccount": "Créer un compte",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "signIn": "Connexion",
+      "creating": "Création du compte..."
+    }
+  }
+}

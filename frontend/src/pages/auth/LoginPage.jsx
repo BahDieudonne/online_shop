@@ -16,12 +16,18 @@ const LoginPage = () => {
 
   const redirect = searchParams.get('redirect') || '/';
 
+  const ADMIN_ROLES = ['admin', 'super_admin', 'manager', 'staff', 'customer_support'];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     try {
-      await dispatch(login(form)).unwrap();
-      navigate(redirect);
+      const result = await dispatch(login(form)).unwrap();
+      const role = result?.user?.role;
+      const isAdmin = ADMIN_ROLES.includes(role);
+      // Never redirect a non-admin user into the /admin section
+      const safeRedirect = redirect.startsWith('/admin') && !isAdmin ? '/' : redirect;
+      navigate(safeRedirect);
     } catch (err) {
       setError(err || 'Invalid email or password');
     }

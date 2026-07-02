@@ -36,9 +36,10 @@ const AdminLayout = () => {
 
   useEffect(() => {
     api.get('/notifications').then(res => {
-      const list = res.data?.data || [];
+      const inner = res.data?.data;
+      const list = Array.isArray(inner) ? inner : (Array.isArray(inner?.notifications) ? inner.notifications : []);
       setNotifications(list);
-      setUnreadCount(list.filter(n => !n.isRead).length);
+      setUnreadCount(typeof inner?.unread === 'number' ? inner.unread : list.filter(n => !n.isRead).length);
     }).catch(() => {});
   }, []);
 

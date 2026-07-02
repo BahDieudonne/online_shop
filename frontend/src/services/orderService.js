@@ -6,10 +6,10 @@ export const orderService = {
   getOrder:          (id)     => api.get(`/orders/${id}`),
   cancelOrder:       (id, reason) => api.post(`/orders/${id}/cancel`, { reason }),
   // Admin
+  getAllOrders:      (params) => api.get('/orders', { params }),
   updateOrderStatus: (id, data) => api.patch(`/orders/${id}/status`, data),
 };
 
-// Admin: same endpoint returns all orders for admin roles, own orders for customers
 export const getAllOrders = (params) => api.get('/orders', { params });
 
 // Coupon validation — backend returns { type, value, minOrderAmount }; calculate discount here

@@ -61,6 +61,12 @@ const productService = {
     const { data } = await api.post('/products/bulk-import', { products });
     return data;
   },
+  // Returns the full axios response so callers can access res.data.data and res.data.pagination
+  getAdminProducts: (params) => api.get('/products', { params }),
+  permanentDeleteProduct: async (id) => {
+    const { data } = await api.delete(`/products/${id}?permanent=true`);
+    return data;
+  },
 };
 
 export default productService;

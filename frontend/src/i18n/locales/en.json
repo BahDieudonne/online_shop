@@ -1,0 +1,159 @@
+{
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "flashSale": "Flash Sale",
+    "trackOrder": "Track Order",
+    "helpCenter": "Help Center",
+    "myAccount": "My Account",
+    "myOrders": "My Orders",
+    "wishlist": "Wishlist",
+    "adminPanel": "Admin Panel",
+    "signOut": "Sign Out",
+    "signIn": "Sign In",
+    "createAccount": "Create Account",
+    "freeDelivery": "Free delivery over 50,000 FCFA"
+  },
+  "common": {
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "search": "Search",
+    "searchPlaceholder": "Search products, brands, categories...",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "continue": "Continue",
+    "freeShipping": "Free Shipping",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "viewAll": "View All"
+  },
+  "home": {
+    "newsletter": {
+      "title": "Stay in the Loop",
+      "subtitle": "Get exclusive deals, new arrivals and more — delivered to your inbox.",
+      "placeholder": "Your email address",
+      "subscribe": "Subscribe",
+      "subscribed": "You're subscribed! Thank you."
+    },
+    "sections": {
+      "featuredProducts": "Featured Products",
+      "newArrivals": "New Arrivals",
+      "bestSellers": "Best Sellers"
+    }
+  },
+  "shop": {
+    "title": "Shop",
+    "filters": "Filters",
+    "sortBy": "Sort By",
+    "noProducts": "No products found",
+    "loadMore": "Load More"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "free": "Free",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "continueShopping": "Continue Shopping"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "steps": {
+      "shipping": "Shipping",
+      "payment": "Payment",
+      "review": "Review"
+    },
+    "shipping": {
+      "title": "Shipping Information",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "address": "Street Address",
+      "city": "City",
+      "region": "Region",
+      "notes": "Delivery Notes (Optional)",
+      "continue": "Continue to Payment",
+      "requiredFields": "Please fill all required fields"
+    },
+    "payment": {
+      "title": "Payment Method",
+      "momoHint": "You will receive a payment prompt on this number.",
+      "back": "Back",
+      "continue": "Review Order"
+    },
+    "review": {
+      "title": "Review Your Order",
+      "placeOrder": "Place Order",
+      "placingOrder": "Placing Order...",
+      "shippingAddress": "Shipping address",
+      "payment": "Payment"
+    },
+    "coupon": {
+      "label": "Have a coupon?",
+      "placeholder": "Coupon code",
+      "apply": "Apply"
+    },
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "couponDiscount": "Coupon discount",
+    "total": "Total",
+    "items": "items",
+    "securePayment": "Your payment is secured with 256-bit SSL encryption",
+    "free": "Free",
+    "failedOrder": "Failed to place order",
+    "invalidCoupon": "Invalid coupon code",
+    "couponApplied": "Coupon applied!"
+  },
+  "footer": {
+    "shop": "Shop",
+    "myAccount": "My Account",
+    "helpInfo": "Help & Info",
+    "weAccept": "We Accept",
+    "rights": "All rights reserved.",
+    "madeIn": "Made with ❤️ in Cameroon",
+    "newsletter": {
+      "title": "Stay in the Loop",
+      "subtitle": "Get exclusive deals, new arrivals and more — delivered to your inbox.",
+      "placeholder": "Your email address",
+      "subscribe": "Subscribe",
+      "subscribed": "You're subscribed! Thank you."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back!",
+      "subtitle": "Sign in to your account to continue shopping",
+      "email": "Email Address",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "signIn": "Sign In",
+      "noAccount": "Don't have an account?",
+      "createFree": "Create one free",
+      "signingIn": "Signing in..."
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Join thousands of shoppers in Cameroon",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "createAccount": "Create Account",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign In",
+      "creating": "Creating account..."
+    }
+  }
+}
