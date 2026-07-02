@@ -44,10 +44,10 @@ async function seed() {
 
   // Create sample customer
   await User.create({
-    firstName: 'Jean',
-    lastName: 'Mballa',
-    email: 'customer@example.com',
-    password: 'Customer@123!',
+    firstName: 'Bah',
+    lastName: 'Dieudonne',
+    email: 'bahdieudonne49@gmail.com',
+    password: 'dieudonne231',
     role: 'customer',
     isEmailVerified: true,
     phone: '+237655000001',

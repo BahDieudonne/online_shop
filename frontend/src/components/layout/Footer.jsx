@@ -68,7 +68,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed mb-4">
-              Your premier shopping destination in Cameroon 🇨🇲. Quality products, fast delivery, and unbeatable prices.
+              Your premier shopping destination in Cameroon. Quality products, fast delivery, and unbeatable prices.
             </p>
             <div className="space-y-2 text-sm">
               <a href="tel:+237674962803" className="flex items-center gap-2 hover:text-gold-400 transition-colors">

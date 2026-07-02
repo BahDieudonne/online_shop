@@ -30,7 +30,9 @@ const ForgotPasswordPage = () => {
           <div className="card p-6">
             {sent ? (
               <div className="text-center py-4">
-                <div className="text-4xl mb-3">📧</div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-14 h-14 text-indigo-500 mx-auto mb-3" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
                 <p className="font-semibold text-gray-800 mb-1">Check your inbox!</p>
                 <p className="text-sm text-gray-500">We sent a password reset link to {email}</p>
                 <Link to="/login" className="btn-primary mt-4 block text-center py-2.5">Back to Login</Link>

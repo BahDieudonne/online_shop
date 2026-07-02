@@ -63,6 +63,11 @@ const productService = {
   },
   // Returns the full axios response so callers can access res.data.data and res.data.pagination
   getAdminProducts: (params) => api.get('/products', { params }),
+  getProductById: (id) => api.get(`/products/${id}`),
+  getCategories: (params) => api.get('/categories', { params }),
+  uploadImages: (formData) => api.post('/upload/images', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }),
   permanentDeleteProduct: async (id) => {
     const { data } = await api.delete(`/products/${id}?permanent=true`);
     return data;

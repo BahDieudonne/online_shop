@@ -47,7 +47,7 @@ const cartSlice = createSlice({
       .addCase(addToCart.fulfilled, (state, { payload }) => {
         state.items = payload?.items || [];
         state.loading = false;
-        toast.success('Added to cart! 🛒');
+        toast.success('Added to cart!');
       })
       .addCase(addToCart.rejected, (state, { payload }) => {
         state.loading = false;

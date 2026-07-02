@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { CheckIcon } from '@heroicons/react/24/solid';
+import { LockClosedIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import { orderService, validateCoupon } from '../services/orderService';
 import { selectCartTotal } from '../redux/slices/cartSlice';
@@ -290,7 +291,7 @@ const CheckoutPage = () => {
               </div>
             </div>
             <div className="bg-green-50 border border-green-200 rounded-lg p-3 text-xs text-green-700">
-              🔒 {t('checkout.securePayment')}
+              <LockClosedIcon className="w-3.5 h-3.5 inline-block mr-1 align-text-bottom" />{t('checkout.securePayment')}
             </div>
           </div>
         </div>

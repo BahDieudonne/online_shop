@@ -45,7 +45,7 @@ const RegisterPage = () => {
               </div>
             </Link>
             <h1 className="font-display text-2xl font-bold text-navy-900">Create your account</h1>
-            <p className="text-gray-500 text-sm mt-1">Join thousands of shoppers in Cameroon 🇨🇲</p>
+            <p className="text-gray-500 text-sm mt-1">Join thousands of shoppers in Cameroon</p>
           </div>
 
           <div className="card p-6">

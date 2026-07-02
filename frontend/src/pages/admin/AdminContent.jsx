@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   PlusIcon, PencilSquareIcon, TrashIcon, PhotoIcon,
-  DocumentTextIcon, QuestionMarkCircleIcon, StarIcon, XMarkIcon
+  DocumentTextIcon, QuestionMarkCircleIcon, StarIcon, XMarkIcon,
+  GlobeAltIcon, BookOpenIcon, ChartBarIcon, LightBulbIcon,
+  PhoneIcon, DevicePhoneMobileIcon, UsersIcon, BoltIcon,
+  SparklesIcon, ShieldCheckIcon, HeartIcon, CheckBadgeIcon,
+  TruckIcon, CreditCardIcon,
 } from '@heroicons/react/24/outline';
+import toast from 'react-hot-toast';
 import Spinner from '../../components/common/Spinner';
+import ImagePicker from '../../components/common/ImagePicker';
 import { formatDate } from '../../utils/formatters';
 import api from '../../services/api';
 
@@ -12,11 +18,55 @@ const TABS = [
   { key: 'blog', label: 'Blog Posts', icon: DocumentTextIcon },
   { key: 'faq', label: 'FAQs', icon: QuestionMarkCircleIcon },
   { key: 'testimonials', label: 'Testimonials', icon: StarIcon },
+  { key: 'pages', label: 'Pages', icon: GlobeAltIcon },
 ];
 
 const BLANK_BANNER = { title: '', subtitle: '', ctaText: '', ctaUrl: '', image: '', bgColor: '#1a237e', isActive: true, order: 0 };
 const BLANK_FAQ = { question: '', answer: '', category: 'General', isActive: true, order: 0 };
 const BLANK_TESTIMONIAL = { name: '', role: '', message: '', rating: 5, avatar: '', isActive: true };
+
+const VALUE_ICON_OPTIONS = [
+  { key: 'users',    Icon: UsersIcon,      label: 'Users / Trust' },
+  { key: 'bolt',     Icon: BoltIcon,       label: 'Bolt / Speed' },
+  { key: 'sparkles', Icon: SparklesIcon,   label: 'Sparkles / Quality' },
+  { key: 'shield',   Icon: ShieldCheckIcon,label: 'Shield / Security' },
+  { key: 'heart',    Icon: HeartIcon,      label: 'Heart' },
+  { key: 'star',     Icon: StarIcon,       label: 'Star' },
+  { key: 'check',    Icon: CheckBadgeIcon, label: 'Badge / Check' },
+  { key: 'truck',    Icon: TruckIcon,      label: 'Truck / Delivery' },
+  { key: 'credit',   Icon: CreditCardIcon, label: 'Card / Payment' },
+];
+
+const VALUE_ICON_MAP = Object.fromEntries(VALUE_ICON_OPTIONS.map(o => [o.key, o.Icon]));
+
+const PAGE_DEFAULTS = {
+  about: {
+    story: { heading: 'Our Story', body: 'CHANCELOR STORE was born from a simple vision: make online shopping accessible, reliable, and enjoyable for everyone in Cameroon.' },
+    mission: { heading: 'Our Mission', body: 'Offer quality products at competitive prices, with fast delivery across Cameroon.' },
+    vision: { heading: 'Our Vision', body: 'Become the leading e-commerce platform in Central Africa.' },
+    stats: [
+      { label: 'Happy Customers', value: '5,000+' },
+      { label: 'Products Available', value: '1,000+' },
+      { label: 'Cities Served', value: '10+' },
+      { label: 'Years of Experience', value: '2+' },
+    ],
+    values: [
+      { icon: 'users',    title: 'Trust',    desc: 'Lasting relationships built on honesty.' },
+      { icon: 'bolt',     title: 'Speed',    desc: 'Express delivery across Cameroon.' },
+      { icon: 'sparkles', title: 'Quality',  desc: 'Only the best products selected.' },
+      { icon: 'shield',   title: 'Security', desc: 'Secure payments and guaranteed returns.' },
+    ],
+  },
+  contact: {
+    phone: '+237 674 962 803',
+    email: 'support@chancelorstore.cm',
+    address: 'Douala, Cameroun',
+    hours: 'Lun - Sam : 8h00 - 20h00',
+    whatsapp: '237674962803',
+    mapEmbed: '',
+    social: { facebook: '', instagram: '', twitter: '' },
+  },
+};
 
 export default function AdminContent() {
   const [tab, setTab] = useState('banners');
@@ -27,9 +77,20 @@ export default function AdminContent() {
   const [editId, setEditId] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const endpointMap = { banners: '/content/banners', blog: '/blog', faq: '/content/faqs', testimonials: '/content/testimonials' };
+  // Pages editor state
+  const [pageName, setPageName] = useState('about');
+  const [pageContent, setPageContent] = useState({});
+  const [pageSaving, setPageSaving] = useState(false);
+
+  const endpointMap = {
+    banners: '/content/banners',
+    blog: '/blog',
+    faq: '/content/faqs',
+    testimonials: '/content/testimonials',
+  };
 
   const fetchItems = useCallback(async () => {
+    if (tab === 'pages') return;
     try {
       setLoading(true);
       const res = await api.get(`${endpointMap[tab]}?admin=true`);
@@ -38,16 +99,57 @@ export default function AdminContent() {
     finally { setLoading(false); }
   }, [tab]);
 
-  useEffect(() => { fetchItems(); }, [fetchItems]);
+  const fetchPage = useCallback(async (name) => {
+    try {
+      const res = await api.get(`/settings/page-${name}`);
+      setPageContent({ ...PAGE_DEFAULTS[name], ...(res.data?.data || {}) });
+    } catch {
+      setPageContent({ ...PAGE_DEFAULTS[name] });
+    }
+  }, []);
 
+  useEffect(() => { fetchItems(); }, [fetchItems]);
+  useEffect(() => { if (tab === 'pages') fetchPage(pageName); }, [tab, pageName, fetchPage]);
+
+  // Page editor helpers
+  const setNestedField = (path, val) => {
+    setPageContent(prev => {
+      const next = JSON.parse(JSON.stringify(prev));
+      const parts = path.split('.');
+      let curr = next;
+      for (let i = 0; i < parts.length - 1; i++) curr = curr[parts[i]];
+      curr[parts[parts.length - 1]] = val;
+      return next;
+    });
+  };
+
+  const updateArrayItem = (arrayKey, index, field, val) => {
+    setPageContent(prev => {
+      const arr = [...(prev[arrayKey] || [])];
+      arr[index] = { ...arr[index], [field]: val };
+      return { ...prev, [arrayKey]: arr };
+    });
+  };
+
+  const savePage = async () => {
+    setPageSaving(true);
+    try {
+      await api.put(`/settings/page-${pageName}`, pageContent);
+      toast.success(`${pageName === 'about' ? 'About' : 'Contact'} page saved!`);
+    } catch {
+      toast.error('Failed to save page');
+    } finally {
+      setPageSaving(false);
+    }
+  };
+
+  // Standard CRUD
   const openCreate = () => {
     const blank = tab === 'banners' ? BLANK_BANNER : tab === 'faq' ? BLANK_FAQ : tab === 'testimonials' ? BLANK_TESTIMONIAL : {};
     setForm(blank); setEditId(null); setShowModal(true);
   };
 
-  const openEdit = (item) => {
-    setForm({ ...item }); setEditId(item._id); setShowModal(true);
-  };
+  const openEdit = (item) => { setForm({ ...item }); setEditId(item._id); setShowModal(true); };
 
   const save = async () => {
     try {
@@ -71,6 +173,8 @@ export default function AdminContent() {
     await fetchItems();
   };
 
+  // ── Renderers ──────────────────────────────────────────────────────────────
+
   const renderBanners = () => (
     <div className="grid gap-4 sm:grid-cols-2">
       {items.map(b => (
@@ -81,9 +185,7 @@ export default function AdminContent() {
               <p className="font-bold text-lg">{b.title}</p>
               {b.subtitle && <p className="text-sm opacity-80">{b.subtitle}</p>}
               {b.ctaText && (
-                <span className="mt-2 inline-block bg-white text-indigo-700 text-xs px-3 py-1 rounded-full w-fit font-medium">
-                  {b.ctaText}
-                </span>
+                <span className="mt-2 inline-block bg-white text-indigo-700 text-xs px-3 py-1 rounded-full w-fit font-medium">{b.ctaText}</span>
               )}
             </div>
           </div>
@@ -218,8 +320,7 @@ export default function AdminContent() {
           <div><label className="label-text">CTA URL</label>
             <input value={form.ctaUrl || ''} onChange={e => setForm(f => ({ ...f, ctaUrl: e.target.value }))} className="input-field w-full" /></div>
         </div>
-        <div><label className="label-text">Image URL</label>
-          <input value={form.image || ''} onChange={e => setForm(f => ({ ...f, image: e.target.value }))} className="input-field w-full" /></div>
+        <ImagePicker label="Banner Image" value={form.image} onChange={url => setForm(f => ({ ...f, image: url }))} />
         <div className="grid grid-cols-2 gap-4">
           <div><label className="label-text">Bg Color</label>
             <div className="flex gap-2 items-center">
@@ -253,15 +354,15 @@ export default function AdminContent() {
         <div><label className="label-text">Rating</label>
           <div className="flex gap-1">
             {[1,2,3,4,5].map(n => (
-              <button key={n} onClick={() => setForm(f => ({ ...f, rating: n }))}
+              <button key={n} type="button" onClick={() => setForm(f => ({ ...f, rating: n }))}
                 className={`text-2xl ${n <= (form.rating || 5) ? 'text-yellow-400' : 'text-gray-300'}`}>★</button>
             ))}
           </div>
         </div>
-        <div><label className="label-text">Avatar URL</label>
-          <input value={form.avatar || ''} onChange={e => setForm(f => ({ ...f, avatar: e.target.value }))} className="input-field w-full" /></div>
+        <ImagePicker label="Avatar" value={form.avatar} onChange={url => setForm(f => ({ ...f, avatar: url }))} />
       </div>
     );
+    // Blog
     return (
       <div className="space-y-4">
         <div><label className="label-text">Title *</label>
@@ -280,30 +381,203 @@ export default function AdminContent() {
             </select>
           </div>
         </div>
-        <div><label className="label-text">Cover Image URL</label>
-          <input value={form.coverImage || ''} onChange={e => setForm(f => ({ ...f, coverImage: e.target.value }))} className="input-field w-full" /></div>
+        <ImagePicker label="Cover Image" value={form.coverImage} onChange={url => setForm(f => ({ ...f, coverImage: url }))} />
       </div>
     );
   };
 
+  const renderPages = () => (
+    <div className="space-y-6">
+
+      {/* Sub-tab picker */}
+      <div className="flex gap-2 p-1 bg-gray-100 rounded-xl w-fit">
+        {[{ key: 'about', label: 'About Us' }, { key: 'contact', label: 'Contact Us' }].map(p => (
+          <button key={p.key} onClick={() => setPageName(p.key)}
+            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all ${pageName === p.key ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
+            {p.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ── About editor ── */}
+      {pageName === 'about' && (
+        <div className="space-y-5">
+
+          {/* Story */}
+          <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
+            <h3 className="font-semibold text-gray-500 text-sm uppercase tracking-wide flex items-center gap-2"><BookOpenIcon className="w-4 h-4" /> Story Section</h3>
+            <div>
+              <label className="label-text">Section Heading</label>
+              <input value={pageContent.story?.heading || ''} onChange={e => setNestedField('story.heading', e.target.value)} className="input-field w-full" />
+            </div>
+            <div>
+              <label className="label-text">Body Text</label>
+              <textarea rows={4} value={pageContent.story?.body || ''} onChange={e => setNestedField('story.body', e.target.value)} className="input-field w-full" />
+            </div>
+          </div>
+
+          {/* Mission & Vision */}
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              { key: 'mission', label: 'Mission' },
+              { key: 'vision',  label: 'Vision' },
+            ].map(({ key, label }) => (
+              <div key={key} className="bg-white border border-gray-200 rounded-xl p-6 space-y-3">
+                <h3 className="font-semibold text-gray-500 text-sm uppercase tracking-wide">{label}</h3>
+                <div>
+                  <label className="label-text">Heading</label>
+                  <input value={pageContent[key]?.heading || ''} onChange={e => setNestedField(`${key}.heading`, e.target.value)} className="input-field w-full" />
+                </div>
+                <div>
+                  <label className="label-text">Body Text</label>
+                  <textarea rows={3} value={pageContent[key]?.body || ''} onChange={e => setNestedField(`${key}.body`, e.target.value)} className="input-field w-full" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <h3 className="font-semibold text-gray-500 text-sm uppercase tracking-wide mb-4 flex items-center gap-2"><ChartBarIcon className="w-4 h-4" /> Stats Bar (4 items)</h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {(pageContent.stats || []).map((s, i) => (
+                <div key={i} className="bg-gray-50 rounded-lg p-3 space-y-2">
+                  <p className="text-xs font-semibold text-gray-400">Stat {i + 1}</p>
+                  <input
+                    placeholder="Value (e.g. 5 000+)"
+                    value={s.value || ''}
+                    onChange={e => updateArrayItem('stats', i, 'value', e.target.value)}
+                    className="input-field w-full text-center font-bold"
+                  />
+                  <input
+                    placeholder="Label"
+                    value={s.label || ''}
+                    onChange={e => updateArrayItem('stats', i, 'label', e.target.value)}
+                    className="input-field w-full text-sm"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Values */}
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <h3 className="font-semibold text-gray-500 text-sm uppercase tracking-wide mb-4 flex items-center gap-2"><LightBulbIcon className="w-4 h-4" /> Our Values (4 cards)</h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {(pageContent.values || []).map((v, i) => (
+                <div key={i} className="bg-gray-50 rounded-lg p-4 space-y-3">
+                  <div>
+                    <label className="label-text">Icon</label>
+                    <div className="flex flex-wrap gap-1.5 mt-1">
+                      {VALUE_ICON_OPTIONS.map(opt => {
+                        const Ico = opt.Icon;
+                        return (
+                          <button key={opt.key} type="button" title={opt.label}
+                            onClick={() => updateArrayItem('values', i, 'icon', opt.key)}
+                            className={`w-9 h-9 rounded-lg flex items-center justify-center border-2 transition-all ${v.icon === opt.key ? 'border-indigo-500 bg-indigo-50 text-indigo-600' : 'border-gray-200 text-gray-400 hover:border-indigo-300'}`}>
+                            <Ico className="w-4 h-4" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="label-text">Title</label>
+                    <input value={v.title || ''} onChange={e => updateArrayItem('values', i, 'title', e.target.value)} className="input-field w-full" />
+                  </div>
+                  <div>
+                    <label className="label-text">Description</label>
+                    <textarea rows={2} value={v.desc || ''} onChange={e => updateArrayItem('values', i, 'desc', e.target.value)} className="input-field w-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Contact editor ── */}
+      {pageName === 'contact' && (
+        <div className="space-y-5">
+
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <h3 className="font-semibold text-gray-500 text-sm uppercase tracking-wide mb-4 flex items-center gap-2"><PhoneIcon className="w-4 h-4" /> Contact Info</h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {[
+                { key: 'phone', label: 'Phone', placeholder: '+237 674 962 803' },
+                { key: 'email', label: 'Email', placeholder: 'support@chancelorstore.cm' },
+                { key: 'address', label: 'Address', placeholder: 'Douala, Cameroun' },
+                { key: 'hours', label: 'Business Hours', placeholder: 'Lun - Sam : 8h00 - 20h00' },
+                { key: 'whatsapp', label: 'WhatsApp (digits only)', placeholder: '237674962803' },
+                { key: 'mapEmbed', label: 'Google Maps Embed URL', placeholder: 'https://maps.google.com/...' },
+              ].map(({ key, label, placeholder }) => (
+                <div key={key}>
+                  <label className="label-text">{label}</label>
+                  <input
+                    value={pageContent[key] || ''}
+                    onChange={e => setPageContent(p => ({ ...p, [key]: e.target.value }))}
+                    placeholder={placeholder}
+                    className="input-field w-full"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
+            <h3 className="font-semibold text-gray-500 text-sm uppercase tracking-wide mb-4 flex items-center gap-2"><DevicePhoneMobileIcon className="w-4 h-4" /> Social Media Links</h3>
+            <div className="space-y-3">
+              {[
+                { net: 'facebook', label: 'Facebook URL', placeholder: 'https://facebook.com/yourpage' },
+                { net: 'instagram', label: 'Instagram URL', placeholder: 'https://instagram.com/yourhandle' },
+                { net: 'twitter', label: 'Twitter / X URL', placeholder: 'https://twitter.com/yourhandle' },
+              ].map(({ net, label, placeholder }) => (
+                <div key={net}>
+                  <label className="label-text">{label}</label>
+                  <input
+                    value={pageContent.social?.[net] || ''}
+                    onChange={e => setPageContent(p => ({ ...p, social: { ...(p.social || {}), [net]: e.target.value } }))}
+                    placeholder={placeholder}
+                    className="input-field w-full"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Save button */}
+      <div className="flex justify-end pt-2">
+        <button onClick={savePage} disabled={pageSaving} className="btn-primary flex items-center gap-2 px-6">
+          {pageSaving && <Spinner size="sm" />}
+          Save {pageName === 'about' ? 'About' : 'Contact'} Page
+        </button>
+      </div>
+    </div>
+  );
+
+  // ── Main render ────────────────────────────────────────────────────────────
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Content</h1>
-          <p className="text-sm text-gray-500">Manage banners, blog posts, FAQs, and testimonials</p>
+          <p className="text-sm text-gray-500">Manage banners, blog posts, FAQs, testimonials and static pages</p>
         </div>
-        <button onClick={openCreate} className="btn-primary flex items-center gap-2">
-          <PlusIcon className="w-4 h-4" /> Add {TABS.find(t => t.key === tab)?.label.replace('s', '')}
-        </button>
+        {tab !== 'pages' && (
+          <button onClick={openCreate} className="btn-primary flex items-center gap-2">
+            <PlusIcon className="w-4 h-4" /> Add {TABS.find(t => t.key === tab)?.label.replace(/s$/, '')}
+          </button>
+        )}
       </div>
 
-      <div className="flex gap-2 border-b border-gray-200">
+      <div className="flex gap-2 border-b border-gray-200 overflow-x-auto">
         {TABS.map(t => {
           const Icon = t.icon;
           return (
             <button key={t.key} onClick={() => setTab(t.key)}
-              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors
+              className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex-shrink-0
                 ${tab === t.key ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
               <Icon className="w-4 h-4" />{t.label}
             </button>
@@ -311,7 +585,8 @@ export default function AdminContent() {
         })}
       </div>
 
-      {loading ? <div className="flex justify-center py-20"><Spinner size="lg" /></div> :
+      {tab === 'pages' ? renderPages() :
+       loading ? <div className="flex justify-center py-20"><Spinner size="lg" /></div> :
        items.length === 0 ? (
         <div className="text-center py-20 text-gray-500">
           <p>No {TABS.find(t => t.key === tab)?.label.toLowerCase()} yet.</p>

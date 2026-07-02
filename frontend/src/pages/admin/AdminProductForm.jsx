@@ -31,10 +31,10 @@ const AdminProductForm = () => {
   });
 
   useEffect(() => {
-    productService.getCategories().then((r) => setCategories(r.data?.data?.categories || [])).catch(() => {});
+    productService.getCategories({ admin: true }).then((r) => setCategories(r.data?.data || [])).catch(() => {});
     if (isEdit) {
       productService.getProductById(id).then((r) => {
-        const p = r.data?.data?.product;
+        const p = r.data?.data;
         if (p) setForm({
           ...p,
           category: p.category?._id || '',
@@ -56,7 +56,7 @@ const AdminProductForm = () => {
       const formData = new FormData();
       Array.from(files).forEach((f) => formData.append('images', f));
       const res = await productService.uploadImages(formData);
-      const newImages = res.data?.data?.images || [];
+      const newImages = Array.isArray(res.data?.data) ? res.data.data : [];
       set('images', [...form.images, ...newImages]);
       toast.success(`${newImages.length} image(s) uploaded`);
     } catch { toast.error('Image upload failed'); }

@@ -18,7 +18,7 @@ const OrderConfirmationPage = () => {
       <Helmet><title>Order Confirmed — CHANCELOR STORE</title></Helmet>
       <div className="container mx-auto px-4 py-12 max-w-2xl text-center">
         <CheckCircleIcon className="w-20 h-20 text-green-500 mx-auto mb-4" />
-        <h1 className="font-display text-3xl font-bold text-navy-900 mb-2">Order Confirmed! 🎉</h1>
+        <h1 className="font-display text-3xl font-bold text-navy-900 mb-2">Order Confirmed!</h1>
         <p className="text-gray-500 mb-6">Thank you for shopping with CHANCELOR STORE. Your order has been placed successfully.</p>
         {order && (
           <div className="card p-5 text-left mb-6 space-y-2 text-sm">

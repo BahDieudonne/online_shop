@@ -10,6 +10,9 @@ import {
   XMarkIcon,
   BellIcon,
   ChevronDownIcon,
+  PhoneIcon,
+  GlobeAltIcon,
+  FireIcon,
 } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as CartSolid } from '@heroicons/react/24/solid';
 import { useTranslation } from 'react-i18next';
@@ -103,11 +106,11 @@ const Header = () => {
       {/* Top bar */}
       <div className="bg-navy-900 text-white text-xs py-1.5 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <span>🇨🇲 Livraison partout au Cameroun | {t('nav.freeDelivery')}</span>
+          <span>Livraison partout au Cameroun | {t('nav.freeDelivery')}</span>
           <div className="flex gap-4">
             <Link to="/track-order" className="hover:text-gold-400 transition-colors">{t('nav.trackOrder')}</Link>
             <Link to="/help" className="hover:text-gold-400 transition-colors">{t('nav.helpCenter')}</Link>
-            <span>📞 +237 674 962 803</span>
+            <span className="flex items-center gap-1"><PhoneIcon className="w-3.5 h-3.5" /> +237 674 962 803</span>
           </div>
         </div>
       </div>
@@ -181,7 +184,7 @@ const Header = () => {
                 className="hidden md:flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-navy-700 px-2 py-1 rounded border border-gray-200 hover:border-navy-300 transition-all"
                 title="Switch language"
               >
-                {i18n.language === 'fr' ? '🇬🇧 EN' : '🇫🇷 FR'}
+                <GlobeAltIcon className="w-3.5 h-3.5" />{i18n.language === 'fr' ? 'EN' : 'FR'}
               </button>
 
               {/* Wishlist */}
@@ -275,7 +278,7 @@ const Header = () => {
             ))}
             <div className="ml-auto">
               <Link to="/shop?filter=flash-sale" className="flex items-center gap-1 text-sm font-semibold text-red-600 animate-pulse">
-                🔥 {t('nav.flashSale')}
+                <FireIcon className="w-4 h-4" /> {t('nav.flashSale')}
               </Link>
             </div>
           </nav>
@@ -296,13 +299,13 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link to="/shop?filter=flash-sale" className="block py-2.5 text-sm font-semibold text-red-600">🔥 {t('nav.flashSale')}</Link>
+              <Link to="/shop?filter=flash-sale" className="flex items-center gap-1 py-2.5 text-sm font-semibold text-red-600"><FireIcon className="w-4 h-4" /> {t('nav.flashSale')}</Link>
               {/* Language toggle in mobile menu */}
               <button
                 onClick={toggleLanguage}
                 className="block w-full text-left py-2.5 text-sm font-medium text-gray-700 border-b border-gray-50"
               >
-                {i18n.language === 'fr' ? '🇬🇧 Switch to English' : '🇫🇷 Passer en Français'}
+                <GlobeAltIcon className="w-4 h-4 mr-2 inline-block" />{i18n.language === 'fr' ? 'Switch to English' : 'Passer en Français'}
               </button>
             </nav>
           </div>

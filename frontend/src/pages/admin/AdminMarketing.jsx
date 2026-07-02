@@ -105,7 +105,7 @@ export default function AdminMarketing() {
             <div>
               <label className="label-text">Subject Line *</label>
               <input value={email.subject} onChange={e => setEmail(f => ({ ...f, subject: e.target.value }))}
-                placeholder="🎉 Exclusive offer just for you!" className="input-field w-full" />
+                placeholder="Exclusive offer just for you!" className="input-field w-full" />
             </div>
             <div>
               <label className="label-text">Preheader (preview text)</label>
@@ -151,7 +151,7 @@ export default function AdminMarketing() {
             <div>
               <label className="label-text">Title *</label>
               <input value={push.title} onChange={e => setPush(f => ({ ...f, title: e.target.value }))}
-                placeholder="New arrivals just landed! 🛍" className="input-field w-full" />
+                placeholder="New arrivals just landed!" className="input-field w-full" />
             </div>
             <div>
               <label className="label-text">Message *</label>
