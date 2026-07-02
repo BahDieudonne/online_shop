@@ -1,4 +1,4 @@
-﻿# CHANCELOR STORE REST API Documentation
+# CHANCELOR STORE REST API Documentation
 
 Base URL: `https://api.chancelorstore.cm/api`
 

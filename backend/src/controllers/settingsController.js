@@ -1,4 +1,4 @@
-﻿const Settings = require('../models/Settings');
+const Settings = require('../models/Settings');
 const { successResponse, errorResponse } = require('../utils/apiResponse');
 
 const DEFAULTS = {

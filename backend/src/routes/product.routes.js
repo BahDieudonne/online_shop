@@ -1,4 +1,4 @@
-﻿const router = require('express').Router();
+const router = require('express').Router();
 const { authenticate, isAdmin, isStaff, optionalAuth } = require('../middleware/auth');
 const {
   getProducts, getProduct, createProduct, updateProduct,

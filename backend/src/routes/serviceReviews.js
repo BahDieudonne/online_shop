@@ -1,4 +1,4 @@
-﻿const router = require('express').Router();
+const router = require('express').Router();
 const ServiceReview = require('../models/ServiceReview');
 const { authenticate } = require('../middleware/auth');
 const { authorize } = require('../middleware/rbac');

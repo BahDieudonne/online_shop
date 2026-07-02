@@ -1,4 +1,4 @@
-﻿// models/Product.js CHANCELOR STORE
+// models/Product.js CHANCELOR STORE
 const mongoose = require('mongoose');
 
 const variantSchema = new mongoose.Schema({

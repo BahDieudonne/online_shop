@@ -1,4 +1,4 @@
-﻿const router = require('express').Router();
+const router = require('express').Router();
 const { authenticate, isStaff, isAdmin } = require('../middleware/auth');
 const c = require('../controllers/contentController');
 

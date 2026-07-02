@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import orderService from '../services/orderService';

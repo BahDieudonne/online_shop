@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, CheckCircleIcon, LockClosedIcon, ShieldCheckIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';

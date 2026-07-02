@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Storage Service switches between local, Cloudinary, S3, GCS
  * based on STORAGE_PROVIDER env variable
  */

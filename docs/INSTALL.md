@@ -1,4 +1,4 @@
-﻿# CHANCELOR STORE Installation Guide
+# CHANCELOR STORE Installation Guide
 
 ## Prerequisites
 - Node.js 20+

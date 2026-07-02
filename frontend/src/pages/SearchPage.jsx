@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import ShopPage from './ShopPage';

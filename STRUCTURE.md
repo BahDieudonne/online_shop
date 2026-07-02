@@ -1,4 +1,4 @@
-﻿# CHANCELOR STORE Project Structure
+# CHANCELOR STORE Project Structure
 
 ```
 chancelor-store/

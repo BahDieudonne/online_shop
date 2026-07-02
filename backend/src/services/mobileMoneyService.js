@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mobile Money Service MTN Mobile Money & Orange Money (Cameroon)
  */
 const axios = require('axios');

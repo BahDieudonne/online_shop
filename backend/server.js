@@ -1,4 +1,4 @@
-﻿// server.js CHANCELOR STORE Backend
+// server.js CHANCELOR STORE Backend
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');

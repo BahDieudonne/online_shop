@@ -1,4 +1,4 @@
-﻿const router = require('express').Router();
+const router = require('express').Router();
 const { getSettings, updateSettings } = require('../controllers/settingsController');
 const { authenticate, isAdmin } = require('../middleware/auth');
 

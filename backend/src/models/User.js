@@ -1,4 +1,4 @@
-﻿// models/User.js CHANCELOR STORE
+// models/User.js CHANCELOR STORE
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 

@@ -1,4 +1,4 @@
-﻿// seedData.js CHANCELOR STORE
+// seedData.js CHANCELOR STORE
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');

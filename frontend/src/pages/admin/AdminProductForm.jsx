@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { PlusIcon, TrashIcon, PhotoIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   PlusIcon, PencilSquareIcon, TrashIcon, PhotoIcon,
   DocumentTextIcon, QuestionMarkCircleIcon, StarIcon, XMarkIcon,
@@ -293,7 +293,7 @@ export default function AdminContent() {
             <div className="flex items-center gap-2">
               {t.avatar ? <img src={t.avatar} alt="" className="w-8 h-8 rounded-full object-cover" /> :
                 <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">
-                  {t.name[0]}
+                  {t.name?.[0] ?? '?'}
                 </div>}
               <div>
                 <p className="text-sm font-medium text-gray-900">{t.name}</p>
