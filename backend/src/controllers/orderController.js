@@ -1,4 +1,4 @@
-const Order   = require('../models/Order');
+﻿const Order   = require('../models/Order');
 const Cart    = require('../models/Cart');
 const Product = require('../models/Product');
 const Coupon  = require('../models/Coupon');
@@ -7,7 +7,7 @@ const Notification = require('../models/Notification');
 const { successResponse, errorResponse, paginatedResponse } = require('../utils/apiResponse');
 const emailService = require('../services/emailService');
 
-// POST /api/orders — place order
+// POST /api/orders place order
 exports.createOrder = async (req, res, next) => {
   try {
     const { shippingAddress: rawAddr, couponCode, notes } = req.body;
@@ -28,7 +28,7 @@ exports.createOrder = async (req, res, next) => {
       const product = item.product;
       const effectivePrice = product.discountPrice || product.price;
 
-      // Detect pre-orders (out-of-stock items) — don't block the order
+      // Detect pre-orders (out-of-stock items) don't block the order
       if (product.hasVariants) {
         const variant = product.variants.id(item.variantId);
         if (!variant) return errorResponse(res, `Variant not found for ${product.name}`, 400);
@@ -36,7 +36,7 @@ exports.createOrder = async (req, res, next) => {
       } else {
         if (product.stock < item.quantity) isPreOrder = true;
       }
-      // Stock is NOT deducted here — deducted when admin confirms payment
+      // Stock is NOT deducted here deducted when admin confirms payment
 
       const itemSubtotal = effectivePrice * item.quantity;
       orderItems.push({
@@ -103,8 +103,8 @@ exports.createOrder = async (req, res, next) => {
       trackingHistory: [{
         status:  'pending_payment',
         message: isPreOrder
-          ? 'Pre-order placed — contact us to arrange payment'
-          : 'Order placed — contact us to arrange payment',
+          ? 'Pre-order placed contact us to arrange payment'
+          : 'Order placed contact us to arrange payment',
       }],
     });
 
@@ -132,7 +132,7 @@ exports.createOrder = async (req, res, next) => {
         recipient: admin._id,
         type:      'new_order',
         title:     `New ${isPreOrder ? 'Pre-' : ''}Order Received`,
-        message:   `Order #${order.orderNumber} from ${shippingAddress.fullName} — ${total.toLocaleString()} XAF`,
+        message:   `Order #${order.orderNumber} from ${shippingAddress.fullName} ${total.toLocaleString()} XAF`,
         data:      { orderId: order._id },
         link:      `/admin/orders/${order._id}`,
       })));
@@ -147,7 +147,7 @@ exports.createOrder = async (req, res, next) => {
   }
 };
 
-// GET /api/orders — customer: own orders, admin: all
+// GET /api/orders customer: own orders, admin: all
 exports.getOrders = async (req, res, next) => {
   try {
     const { page = 1, limit = 10, status, sort = '-createdAt' } = req.query;

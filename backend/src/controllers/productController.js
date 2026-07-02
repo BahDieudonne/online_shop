@@ -1,10 +1,10 @@
-// controllers/productController.js
+﻿// controllers/productController.js
 const mongoose = require('mongoose');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 const AuditLog = require('../models/AuditLog');
 
-// GET /api/products — public, with filtering/sorting/pagination
+// GET /api/products public, with filtering/sorting/pagination
 exports.getProducts = async (req, res) => {
   try {
     const {
@@ -76,7 +76,7 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-// GET /api/products/:id — by ID or slug
+// GET /api/products/:id by ID or slug
 exports.getProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -103,7 +103,7 @@ exports.getProduct = async (req, res) => {
   }
 };
 
-// POST /api/products — Admin only
+// POST /api/products Admin only
 exports.createProduct = async (req, res) => {
   try {
     const productData = { ...req.body, createdBy: req.user._id };
@@ -136,7 +136,7 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-// PUT /api/products/:id — Admin only
+// PUT /api/products/:id Admin only
 exports.updateProduct = async (req, res) => {
   try {
     const product = await Product.findOne({ _id: req.params.id, deletedAt: null });
@@ -160,7 +160,7 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-// DELETE /api/products/:id — soft delete
+// DELETE /api/products/:id soft delete
 exports.deleteProduct = async (req, res) => {
   try {
     const product = await Product.findOne({ _id: req.params.id, deletedAt: null });
@@ -199,7 +199,7 @@ exports.autocomplete = async (req, res) => {
   }
 };
 
-// PATCH /api/products/:id/restore — restore soft-deleted
+// PATCH /api/products/:id/restore restore soft-deleted
 exports.restoreProduct = async (req, res) => {
   try {
     const product = await Product.findOneAndUpdate(
@@ -214,7 +214,7 @@ exports.restoreProduct = async (req, res) => {
   }
 };
 
-// POST /api/products/bulk-import — CSV/Excel import
+// POST /api/products/bulk-import CSV/Excel import
 exports.bulkImport = async (req, res) => {
   try {
     const { products } = req.body;
@@ -240,7 +240,7 @@ exports.bulkImport = async (req, res) => {
   }
 };
 
-// POST /api/products/:id/view — track product view (fire-and-forget, no auth required)
+// POST /api/products/:id/view track product view (fire-and-forget, no auth required)
 exports.trackView = async (req, res) => {
   try {
     await Product.findByIdAndUpdate(req.params.id, { $inc: { 'analytics.views': 1 } });

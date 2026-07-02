@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "home": "Home",
     "shop": "Shop",
@@ -36,7 +36,7 @@
   "home": {
     "newsletter": {
       "title": "Stay in the Loop",
-      "subtitle": "Get exclusive deals, new arrivals and more — delivered to your inbox.",
+      "subtitle": "Get exclusive deals, new arrivals and more delivered to your inbox.",
       "placeholder": "Your email address",
       "subscribe": "Subscribe",
       "subscribed": "You're subscribed! Thank you."
@@ -125,7 +125,7 @@
     "madeIn": "Made with ❤️ in Cameroon",
     "newsletter": {
       "title": "Stay in the Loop",
-      "subtitle": "Get exclusive deals, new arrivals and more — delivered to your inbox.",
+      "subtitle": "Get exclusive deals, new arrivals and more delivered to your inbox.",
       "placeholder": "Your email address",
       "subscribe": "Subscribe",
       "subscribed": "You're subscribed! Thank you."

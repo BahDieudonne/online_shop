@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+﻿const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
@@ -51,7 +51,7 @@ exports.sendWelcomeEmail = async (user) => {
     subject: '🎉 Welcome to CHANCELOR STORE!',
     html: baseTemplate(`
       <h2>Welcome, ${user.firstName}! 🎉</h2>
-      <p>Thank you for joining CHANCELOR STORE — Cameroon's premier online shopping destination.</p>
+      <p>Thank you for joining CHANCELOR STORE Cameroon's premier online shopping destination.</p>
       <div class="highlight">
         <strong>Your referral code: ${user.referralCode}</strong><br>
         Share with friends and earn 100 loyalty points for each successful referral!
@@ -65,7 +65,7 @@ exports.sendWelcomeEmail = async (user) => {
 exports.sendPasswordResetEmail = async (user, resetUrl) => {
   await transporter.sendMail({
     from, to: user.email,
-    subject: '🔐 Password Reset Request — CHANCELOR STORE',
+    subject: '🔐 Password Reset Request CHANCELOR STORE',
     html: baseTemplate(`
       <h2>Reset Your Password</h2>
       <p>Hi ${user.firstName}, we received a request to reset your password.</p>
@@ -88,7 +88,7 @@ exports.sendOrderConfirmationEmail = async (user, order) => {
 
   await transporter.sendMail({
     from, to: user.email,
-    subject: `✅ Order Confirmed #${order.orderNumber} — CHANCELOR STORE`,
+    subject: `✅ Order Confirmed #${order.orderNumber} CHANCELOR STORE`,
     html: baseTemplate(`
       <h2>Order Confirmed! 🎉</h2>
       <p>Hi ${user.firstName}, your order has been placed successfully.</p>

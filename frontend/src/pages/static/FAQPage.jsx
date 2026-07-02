@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+﻿import React, { useEffect, useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import {
@@ -70,7 +70,7 @@ const FAQPage = () => {
 
   return (
     <>
-      <Helmet><title>FAQ — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>FAQ CHANCELOR STORE</title></Helmet>
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-navy-800 via-navy-900 to-purple-900 text-white py-20">

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -13,7 +13,7 @@ const CartPage = () => {
 
   return (
     <>
-      <Helmet><title>Shopping Cart — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Shopping Cart CHANCELOR STORE</title></Helmet>
       <div className="container mx-auto px-4 py-8 max-w-5xl">
         <h1 className="font-display text-2xl font-bold text-navy-900 mb-6">Shopping Cart ({items.length})</h1>
         {items.length === 0 ? (

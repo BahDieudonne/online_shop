@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import authService from '../../services/authService';
@@ -25,7 +25,7 @@ const ResetPasswordPage = () => {
 
   return (
     <>
-      <Helmet><title>Reset Password — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Reset Password CHANCELOR STORE</title></Helmet>
       <div className="min-h-screen bg-gradient-to-br from-navy-50 to-purple-50 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <div className="card p-6 space-y-4">

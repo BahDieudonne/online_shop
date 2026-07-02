@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+﻿import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { PlusIcon, PencilIcon, TrashIcon, ArchiveBoxIcon, MagnifyingGlassIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
@@ -59,7 +59,7 @@ const AdminProducts = () => {
 
   return (
     <>
-      <Helmet><title>Products — Admin | CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Products Admin | CHANCELOR STORE</title></Helmet>
       <div className="space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-3">

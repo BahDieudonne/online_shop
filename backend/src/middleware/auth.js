@@ -1,4 +1,4 @@
-// middleware/auth.js — JWT + RBAC
+﻿// middleware/auth.js JWT + RBAC
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 

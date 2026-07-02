@@ -1,10 +1,10 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { LockClosedIcon } from '@heroicons/react/24/outline';
 const UnauthorizedPage = () => (
   <>
-    <Helmet><title>Unauthorized — CHANCELOR STORE</title></Helmet>
+    <Helmet><title>Unauthorized CHANCELOR STORE</title></Helmet>
     <div className="container mx-auto px-4 py-20 text-center">
       <LockClosedIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
       <h1 className="font-display text-3xl font-bold text-navy-900 mb-3">Access Denied</h1>

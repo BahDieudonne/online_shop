@@ -1,10 +1,10 @@
-/** @type {import('tailwindcss').Config} */
+﻿/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Navy scale — used throughout components (text-navy-*, bg-navy-*)
+        // Navy scale used throughout components (text-navy-*, bg-navy-*)
         navy: {
           50:  '#e8eaf6',
           100: '#c5cae9',
@@ -17,7 +17,7 @@ module.exports = {
           800: '#283593',
           900: '#1a237e',
         },
-        // Gold scale — accent color
+        // Gold scale accent color
         gold: {
           50:  '#fffbeb',
           100: '#fef3c7',

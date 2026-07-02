@@ -1,4 +1,4 @@
-# CHANCELOR STORE — Installation Guide
+﻿# CHANCELOR STORE Installation Guide
 
 ## Prerequisites
 - Node.js 20+
@@ -48,9 +48,9 @@ npm run seed
 See `backend/.env.example` for all required variables.
 
 **Required for basic operation:**
-- `MONGODB_URI` — MongoDB connection string
-- `JWT_ACCESS_SECRET` — Min 32 random chars
-- `JWT_REFRESH_SECRET` — Min 32 random chars (different from above)
+- `MONGODB_URI` MongoDB connection string
+- `JWT_ACCESS_SECRET` Min 32 random chars
+- `JWT_REFRESH_SECRET` Min 32 random chars (different from above)
 
 **Required for payments:**
 - Stripe: `STRIPE_SECRET_KEY`

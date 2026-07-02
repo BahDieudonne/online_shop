@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   PhoneIcon, EnvelopeIcon, MapPinIcon, ClockIcon,
@@ -73,7 +73,7 @@ const ContactPage = () => {
 
   return (
     <>
-      <Helmet><title>Contact — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Contact CHANCELOR STORE</title></Helmet>
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-navy-800 via-navy-900 to-purple-900 text-white py-24">
@@ -120,7 +120,7 @@ const ContactPage = () => {
             {/* Form */}
             <div className="md:col-span-3 bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
               <h2 className="text-2xl font-bold text-navy-900 mb-1">Send a message</h2>
-              <p className="text-sm text-gray-500 mb-6">Fill in the form — it will open directly in WhatsApp.</p>
+              <p className="text-sm text-gray-500 mb-6">Fill in the form it will open directly in WhatsApp.</p>
 
               {sent ? (
                 <div className="text-center py-10">
@@ -154,7 +154,7 @@ const ContactPage = () => {
                   <button type="submit" disabled={submitting} className="btn-primary w-full flex items-center justify-center gap-2 py-3">
                     <ChatBubbleLeftRightIcon className="w-5 h-5" /> Send via WhatsApp
                   </button>
-                  <p className="text-xs text-gray-400 text-center">Your message opens in WhatsApp — no data is stored.</p>
+                  <p className="text-xs text-gray-400 text-center">Your message opens in WhatsApp no data is stored.</p>
                 </form>
               )}
             </div>
@@ -166,7 +166,7 @@ const ContactPage = () => {
                   <ChatBubbleLeftRightIcon className="w-7 h-7 text-green-600" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-1">WhatsApp Direct</h3>
-                <p className="text-gray-500 text-sm mb-5">Quick response — usually within one hour.</p>
+                <p className="text-gray-500 text-sm mb-5">Quick response usually within one hour.</p>
                 <a
                   href={`https://wa.me/${content.whatsapp}`}
                   target="_blank"

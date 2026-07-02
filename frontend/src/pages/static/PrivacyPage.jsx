@@ -1,8 +1,8 @@
-import React from 'react';
+﻿import React from 'react';
 import { Helmet } from 'react-helmet-async';
 const PrivacyPage = () => (
   <>
-    <Helmet><title>Privacy Policy — CHANCELOR STORE</title></Helmet>
+    <Helmet><title>Privacy Policy CHANCELOR STORE</title></Helmet>
     <div className="container mx-auto px-4 py-12 max-w-3xl">
       <h1 className="font-display text-3xl font-bold text-navy-900 mb-6">Privacy Policy</h1>
       <div className="card p-6 text-gray-600 space-y-4">

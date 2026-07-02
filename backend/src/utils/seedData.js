@@ -1,4 +1,4 @@
-// seedData.js — CHANCELOR STORE
+﻿// seedData.js CHANCELOR STORE
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -93,7 +93,7 @@ async function seed() {
       name: 'Tecno Spark 20 Pro',
       slug: 'tecno-spark-20-pro',
       shortDescription: 'Africa-first smartphone. 108MP camera, 6.78-inch display, 5000mAh battery.',
-      description: '<p>The Tecno Spark 20 Pro is built for Africa — affordable, powerful, and ready for mobile money. Perfect for business and entertainment.</p>',
+      description: '<p>The Tecno Spark 20 Pro is built for Africa affordable, powerful, and ready for mobile money. Perfect for business and entertainment.</p>',
       category: elec._id,
       brand: 'Tecno',
       price: 120000,

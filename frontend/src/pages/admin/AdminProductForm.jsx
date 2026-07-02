@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { PlusIcon, TrashIcon, PhotoIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
@@ -117,7 +117,7 @@ const AdminProductForm = () => {
 
   return (
     <>
-      <Helmet><title>{isEdit ? 'Edit Product' : 'New Product'} — Admin | CHANCELOR STORE</title></Helmet>
+      <Helmet><title>{isEdit ? 'Edit Product' : 'New Product'} Admin | CHANCELOR STORE</title></Helmet>
       <form onSubmit={handleSubmit}>
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <div className="flex items-center gap-3">

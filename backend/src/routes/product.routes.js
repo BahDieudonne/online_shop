@@ -1,4 +1,4 @@
-const router = require('express').Router();
+﻿const router = require('express').Router();
 const { authenticate, isAdmin, isStaff, optionalAuth } = require('../middleware/auth');
 const {
   getProducts, getProduct, createProduct, updateProduct,
@@ -9,7 +9,7 @@ const Product = require('../models/Product');
 router.get('/', optionalAuth, getProducts);
 router.get('/search/autocomplete', autocomplete);
 
-// Admin inventory — must be before /:id to avoid being caught by the param route
+// Admin inventory must be before /:id to avoid being caught by the param route
 router.get('/admin/inventory', authenticate, isStaff, async (req, res, next) => {
   try {
     const { page = 1, limit = 20, stockFilter = 'all', search } = req.query;

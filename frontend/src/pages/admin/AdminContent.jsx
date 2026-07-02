@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+﻿import React, { useState, useEffect, useCallback } from 'react';
 import {
   PlusIcon, PencilSquareIcon, TrashIcon, PhotoIcon,
   DocumentTextIcon, QuestionMarkCircleIcon, StarIcon, XMarkIcon,
@@ -150,7 +150,7 @@ export default function AdminContent() {
   };
 
   const openEdit = (item) => {
-    // Blog posts store coverImage as { url } object — flatten to string for the form
+    // Blog posts store coverImage as { url } object flatten to string for the form
     const normalised = { ...item };
     if (tab === 'blog' && item.coverImage?.url) normalised.coverImage = item.coverImage.url;
     setForm(normalised);

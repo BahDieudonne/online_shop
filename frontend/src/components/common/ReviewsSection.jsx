@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
@@ -99,7 +99,7 @@ const ReviewsSection = () => {
     setSubmitting(true);
     try {
       await api.post('/service-reviews', form);
-      toast.success('Review submitted — it will appear after approval');
+      toast.success('Review submitted it will appear after approval');
       setSubmitted(true);
       setShowForm(false);
     } catch (err) {
@@ -192,7 +192,7 @@ const ReviewsSection = () => {
                     rows={4}
                     required
                     maxLength={1000}
-                    placeholder="Tell us about your shopping experience — delivery, quality, service..."
+                    placeholder="Tell us about your shopping experience delivery, quality, service..."
                     value={form.body}
                     onChange={(e) => setForm((f) => ({ ...f, body: e.target.value }))}
                     className="input w-full resize-none"
@@ -241,7 +241,7 @@ const ReviewsSection = () => {
           </div>
         ) : reviews.length === 0 ? (
           <div className="text-center py-8 text-gray-400">
-            <p>No reviews yet — be the first to share your experience!</p>
+            <p>No reviews yet be the first to share your experience!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

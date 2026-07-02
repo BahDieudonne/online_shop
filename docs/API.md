@@ -1,4 +1,4 @@
-# CHANCELOR STORE — REST API Documentation
+﻿# CHANCELOR STORE REST API Documentation
 
 Base URL: `https://api.chancelorstore.cm/api`
 
@@ -48,7 +48,7 @@ Access tokens expire in **15 minutes**. Use the refresh endpoint to get new ones
 | PATCH | `/products/:id/restore` | Restore deleted product | Admin |
 | POST | `/products/bulk-import` | Bulk import from CSV/Excel | Admin |
 
-### GET /products — Query Parameters
+### GET /products Query Parameters
 | Param | Type | Description |
 |-------|------|-------------|
 | page | number | Page number (default: 1) |
@@ -82,7 +82,7 @@ Access tokens expire in **15 minutes**. Use the refresh endpoint to get new ones
 | GET | `/orders/:id/invoice` | Download invoice PDF | Yes |
 | GET | `/orders/:id/tracking` | Real-time tracking events | Yes |
 
-### POST /orders — Request Body
+### POST /orders Request Body
 ```json
 {
   "items": [

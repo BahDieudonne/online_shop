@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -25,7 +25,7 @@ const BANNERS = [
     badgeText: 'Just Landed',
   },
   {
-    title: 'Flash Sale — Up to 60% Off',
+    title: 'Flash Sale Up to 60% Off',
     subtitle: "Limited time deals on top brands. Grab them before they're gone!",
     cta: 'View Deals',
     link: '/shop?filter=flash-sale',
@@ -80,9 +80,9 @@ const HomePage = () => {
   return (
     <>
       <Helmet>
-        <title>CHANCELOR STORE — Shop Online in Cameroon</title>
+        <title>CHANCELOR STORE Shop Online in Cameroon</title>
         <meta name="description" content="Cameroon's premier online store. Shop electronics, fashion, home goods and more. Fast delivery, mobile money payment accepted." />
-        <meta property="og:title" content="CHANCELOR STORE — Shop Online in Cameroon" />
+        <meta property="og:title" content="CHANCELOR STORE Shop Online in Cameroon" />
         <meta property="og:description" content="Quality products, fast delivery, MTN & Orange Money accepted." />
       </Helmet>
 
@@ -255,7 +255,7 @@ const HomePage = () => {
           <h2 className="font-display text-3xl md:text-4xl font-bold mt-3 mb-4">Built for Cameroon, Made with Love</h2>
           <p className="text-gray-300 text-lg leading-relaxed mb-8">
             CHANCELOR STORE is on a mission to make quality products accessible to every Cameroonian.
-            From Douala to Yaoundé, Bafoussam to Bamenda — we deliver to you.
+            From Douala to Yaoundé, Bafoussam to Bamenda we deliver to you.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/about" className="btn-gold px-8 py-3 font-bold">Our Story</Link>

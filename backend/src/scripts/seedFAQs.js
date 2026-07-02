@@ -1,4 +1,4 @@
-require('dotenv').config({ path: require('path').join(__dirname, '../../.env') });
+﻿require('dotenv').config({ path: require('path').join(__dirname, '../../.env') });
 const mongoose = require('mongoose');
 
 const run = async () => {
@@ -79,7 +79,7 @@ const run = async () => {
     {
       type: 'faq', category: 'Returns & Refunds', order: 4, isActive: true,
       question: 'What if I receive a damaged or wrong product?',
-      answer: 'If you receive a damaged or incorrect item, contact us immediately on WhatsApp with photos of the product. We will send a replacement at no additional cost or issue a full refund — your choice.',
+      answer: 'If you receive a damaged or incorrect item, contact us immediately on WhatsApp with photos of the product. We will send a replacement at no additional cost or issue a full refund your choice.',
     },
 
     // ── Account ───────────────────────────────────────────────────────────

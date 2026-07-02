@@ -1,11 +1,11 @@
-const router = require('express').Router();
+﻿const router = require('express').Router();
 const { authenticate, isStaff, isAdmin } = require('../middleware/auth');
 const c = require('../controllers/contentController');
 
-// GET  /blog         — public
-// POST /blog         — staff+
-// PUT  /blog/:id     — staff+
-// DELETE /blog/:id   — admin+
+// GET  /blog         public
+// POST /blog         staff+
+// PUT  /blog/:id     staff+
+// DELETE /blog/:id   admin+
 
 router.get('/',       c.listPosts);
 router.post('/',      authenticate, isStaff, c.createPost);

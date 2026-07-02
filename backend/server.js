@@ -1,4 +1,4 @@
-// server.js — CHANCELOR STORE Backend
+﻿// server.js CHANCELOR STORE Backend
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -69,7 +69,7 @@ app.use((req, res) => res.status(404).json({ message: `Route ${req.url} not foun
 // Error handler
 app.use(errorHandler);
 
-// DB + server start — skipped when Vercel imports this as a serverless handler
+// DB + server start skipped when Vercel imports this as a serverless handler
 if (require.main === module) {
   mongoose.connect(process.env.MONGODB_URI, {
     maxPoolSize: 10, serverSelectionTimeoutMS: 5000,

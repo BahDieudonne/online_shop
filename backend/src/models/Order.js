@@ -1,4 +1,4 @@
-// models/Order.js — CHANCELOR STORE
+﻿// models/Order.js CHANCELOR STORE
 const mongoose = require('mongoose');
 
 const orderItemSchema = new mongoose.Schema({

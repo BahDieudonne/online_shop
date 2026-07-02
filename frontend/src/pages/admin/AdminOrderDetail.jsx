@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   ArrowLeftIcon, PrinterIcon, TruckIcon, CheckCircleIcon,
@@ -162,7 +162,7 @@ export default function AdminOrderDetail() {
             })}
           </div>
 
-          {/* Action buttons — next step only */}
+          {/* Action buttons next step only */}
           <div className="mt-6 flex flex-wrap gap-3 items-end">
             {STATUS_FLOW.map((step, i) => {
               if (i <= currentStep || i > currentStep + 1) return null;
@@ -201,7 +201,7 @@ export default function AdminOrderDetail() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left — items + notes */}
+        {/* Left items + notes */}
         <div className="lg:col-span-2 space-y-6">
           {/* Items */}
           <div className="bg-white rounded-xl border border-gray-200">
@@ -286,7 +286,7 @@ export default function AdminOrderDetail() {
           )}
         </div>
 
-        {/* Right — status, customer, address */}
+        {/* Right status, customer, address */}
         <div className="space-y-5">
           {/* Status */}
           <div className="bg-white rounded-xl border border-gray-200 p-5">

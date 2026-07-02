@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import orderService from '../services/orderService';
@@ -22,7 +22,7 @@ const TrackOrderPage = () => {
 
   return (
     <>
-      <Helmet><title>Track Your Order — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Track Your Order CHANCELOR STORE</title></Helmet>
       <div className="container mx-auto px-4 py-12 max-w-lg">
         <h1 className="font-display text-3xl font-bold text-navy-900 text-center mb-2">Track Your Order</h1>
         <p className="text-gray-500 text-center mb-8">Enter your order number to see real-time updates</p>

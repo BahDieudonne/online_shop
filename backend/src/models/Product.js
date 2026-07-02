@@ -1,4 +1,4 @@
-// models/Product.js — CHANCELOR STORE
+﻿// models/Product.js CHANCELOR STORE
 const mongoose = require('mongoose');
 
 const variantSchema = new mongoose.Schema({
@@ -38,7 +38,7 @@ const productSchema = new mongoose.Schema({
   discountPrice: { type: Number },
   costPrice: { type: Number },
 
-  // Variants (optional — if set, variant prices override base price)
+  // Variants (optional if set, variant prices override base price)
   hasVariants: { type: Boolean, default: false },
   variantAttributes: [{ type: String }],         // e.g. ['color', 'storage']
   variants: [variantSchema],
@@ -79,7 +79,7 @@ const productSchema = new mongoose.Schema({
   metaDescription: { type: String },
   metaKeywords: [{ type: String }],
 
-  // Analytics (denormalized counters — updated via aggregation)
+  // Analytics (denormalized counters updated via aggregation)
   analytics: {
     views: { type: Number, default: 0 },
     addToCartCount: { type: Number, default: 0 },

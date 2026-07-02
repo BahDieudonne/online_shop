@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -50,7 +50,7 @@ const ProductDetailPage = () => {
         setProduct(p);
         setRelated(relRes.products || []);
         if (p?.variants?.length > 0) setSelectedVariant(p.variants[0]);
-        // Load reviews — paginatedResponse returns { data: [reviews], pagination: {...} }
+        // Load reviews paginatedResponse returns { data: [reviews], pagination: {...} }
         const revRes = await productService.getProductReviews(p._id);
         setReviews(revRes.data || []);
         // Track view
@@ -109,7 +109,7 @@ const ProductDetailPage = () => {
   return (
     <>
       <Helmet>
-        <title>{product.name} — CHANCELOR STORE</title>
+        <title>{product.name} CHANCELOR STORE</title>
         <meta name="description" content={product.shortDescription || product.description?.substring(0, 160)} />
         <meta property="og:title" content={product.name} />
         <meta property="og:image" content={images[0]?.url} />
@@ -279,7 +279,7 @@ const ProductDetailPage = () => {
               {stock === 0 && (
                 <div className="flex items-center gap-2 text-sm text-purple-700 font-medium pb-1 border-b border-gray-200 mb-1">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                  Pre-order — contact us after placing to arrange payment and delivery date
+                  Pre-order contact us after placing to arrange payment and delivery date
                 </div>
               )}
               <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -292,7 +292,7 @@ const ProductDetailPage = () => {
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <CheckIcon className="w-4 h-4 text-purple-600" />
-                Authentic product — 100% guaranteed
+                Authentic product 100% guaranteed
               </div>
             </div>
 

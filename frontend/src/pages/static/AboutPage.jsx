@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import {
@@ -63,7 +63,7 @@ const AboutPage = () => {
 
   return (
     <>
-      <Helmet><title>About Us — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>About Us CHANCELOR STORE</title></Helmet>
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-navy-800 via-navy-900 to-purple-900 text-white py-24">
@@ -75,7 +75,7 @@ const AboutPage = () => {
             About <span className="text-gold-400">CHANCELOR STORE</span>
           </h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Your trusted online store — quality, speed, and satisfaction guaranteed.
+            Your trusted online store quality, speed, and satisfaction guaranteed.
           </p>
         </div>
       </section>

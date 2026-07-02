@@ -1,10 +1,10 @@
-const router = require('express').Router();
+﻿const router = require('express').Router();
 const ServiceReview = require('../models/ServiceReview');
 const { authenticate } = require('../middleware/auth');
 const { authorize } = require('../middleware/rbac');
 const { successResponse, errorResponse, paginatedResponse } = require('../utils/apiResponse');
 
-// GET /api/service-reviews — public, returns approved reviews + aggregate stats
+// GET /api/service-reviews public, returns approved reviews + aggregate stats
 router.get('/', async (req, res, next) => {
   try {
     const { page = 1, limit = 9 } = req.query;
@@ -45,7 +45,7 @@ router.get('/', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
-// POST /api/service-reviews — authenticated customers only
+// POST /api/service-reviews authenticated customers only
 router.post('/', authenticate, async (req, res, next) => {
   try {
     const existing = await ServiceReview.findOne({ customer: req.user._id });
@@ -61,11 +61,11 @@ router.post('/', authenticate, async (req, res, next) => {
       body: body.trim(),
     });
 
-    return successResponse(res, review, 'Review submitted — it will appear after moderation', 201);
+    return successResponse(res, review, 'Review submitted it will appear after moderation', 201);
   } catch (err) { next(err); }
 });
 
-// PATCH /api/service-reviews/:id/status — admin: approve or reject
+// PATCH /api/service-reviews/:id/status admin: approve or reject
 router.patch('/:id/status', authenticate, authorize('admin'), async (req, res, next) => {
   try {
     const { status } = req.body;
@@ -78,7 +78,7 @@ router.patch('/:id/status', authenticate, authorize('admin'), async (req, res, n
   } catch (err) { next(err); }
 });
 
-// GET /api/service-reviews/pending — admin: list pending reviews
+// GET /api/service-reviews/pending admin: list pending reviews
 router.get('/pending', authenticate, authorize('admin'), async (req, res, next) => {
   try {
     const reviews = await ServiceReview.find({ status: 'pending' })

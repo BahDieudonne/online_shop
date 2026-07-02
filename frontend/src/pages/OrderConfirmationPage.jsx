@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
@@ -55,12 +55,12 @@ const OrderConfirmationPage = () => {
 
   const waNumber = contact.whatsapp?.replace(/[^0-9]/g, '');
   const waMessage = order
-    ? encodeURIComponent(`Hello CHANCELOR STORE, I want to arrange payment for my order #${order.orderNumber} — Total: ${order.pricing?.total?.toLocaleString()} XAF`)
+    ? encodeURIComponent(`Hello CHANCELOR STORE, I want to arrange payment for my order #${order.orderNumber} Total: ${order.pricing?.total?.toLocaleString()} XAF`)
     : encodeURIComponent('Hello CHANCELOR STORE, I want to arrange payment for my order.');
 
   return (
     <>
-      <Helmet><title>Order Placed — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Order Placed CHANCELOR STORE</title></Helmet>
       <div className="container mx-auto px-4 py-10 max-w-2xl">
 
         {/* Success banner */}
@@ -83,7 +83,7 @@ const OrderConfirmationPage = () => {
           )}
         </div>
 
-        {/* PAYMENT INSTRUCTIONS — prominent */}
+        {/* PAYMENT INSTRUCTIONS prominent */}
         <div className="bg-gradient-to-br from-green-600 to-green-700 text-white rounded-2xl p-6 mb-6 shadow-lg">
           <h2 className="font-display text-xl font-bold mb-1">Contact us to pay</h2>
           <p className="text-green-100 text-sm mb-5">
@@ -97,21 +97,21 @@ const OrderConfirmationPage = () => {
               className="flex items-center gap-3 bg-white/20 hover:bg-white/30 transition-colors rounded-xl px-4 py-3 font-semibold"
             >
               <WhatsAppSVG />
-              <span>WhatsApp — {contact.whatsapp}</span>
+              <span>WhatsApp {contact.whatsapp}</span>
             </a>
             <a
               href={`tel:${contact.phone}`}
               className="flex items-center gap-3 bg-white/20 hover:bg-white/30 transition-colors rounded-xl px-4 py-3 font-semibold"
             >
               <PhoneSVG />
-              <span>Call — {contact.phone}</span>
+              <span>Call {contact.phone}</span>
             </a>
             <a
               href={`mailto:${contact.email}?subject=Payment for Order ${order?.orderNumber || ''}`}
               className="flex items-center gap-3 bg-white/20 hover:bg-white/30 transition-colors rounded-xl px-4 py-3 font-semibold"
             >
               <EmailSVG />
-              <span>Email — {contact.email}</span>
+              <span>Email {contact.email}</span>
             </a>
           </div>
         </div>

@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "chancelor-store-backend",
   "version": "1.0.0",
-  "description": "CHANCELOR STORE 🛍🇨🇲 — Enterprise E-Commerce Backend",
+  "description": "CHANCELOR STORE 🛍🇨🇲 Enterprise E-Commerce Backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

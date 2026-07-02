@@ -1,4 +1,4 @@
-require('dotenv').config({ path: require('path').join(__dirname, '../../.env') });
+﻿require('dotenv').config({ path: require('path').join(__dirname, '../../.env') });
 const mongoose = require('mongoose');
 
 const run = async () => {
@@ -13,7 +13,7 @@ const run = async () => {
     Product.countDocuments(),
   ]);
 
-  console.log(`Found ${pCount} product(s) — deleting...`);
+  console.log(`Found ${pCount} product(s) deleting...`);
 
   await Promise.all([
     Product.deleteMany({}),

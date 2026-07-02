@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
@@ -89,11 +89,11 @@ export default function AccountOrderDetail() {
   const canCancel = !['shipped', 'out_for_delivery', 'delivered', 'cancelled', 'refunded'].includes(order.status);
 
   const waNumber = contact.whatsapp?.replace(/[^0-9]/g, '');
-  const waMsg = encodeURIComponent(`Hello, I'm following up on my order #${order.orderNumber} — Total: ${order.pricing?.total?.toLocaleString()} XAF`);
+  const waMsg = encodeURIComponent(`Hello, I'm following up on my order #${order.orderNumber} Total: ${order.pricing?.total?.toLocaleString()} XAF`);
 
   return (
     <>
-      <Helmet><title>Order #{order.orderNumber} — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Order #{order.orderNumber} CHANCELOR STORE</title></Helmet>
       <div className="max-w-3xl mx-auto space-y-5">
         {/* Header */}
         <div className="flex items-center gap-3">

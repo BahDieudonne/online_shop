@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+﻿import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
@@ -68,7 +68,7 @@ const AccountOrders = () => {
 
   return (
     <>
-      <Helmet><title>My Orders — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>My Orders CHANCELOR STORE</title></Helmet>
       <div className="max-w-3xl mx-auto space-y-5">
         <div className="flex items-center justify-between">
           <h1 className="font-display text-2xl font-bold text-navy-900">My Orders</h1>

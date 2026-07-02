@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -263,7 +263,7 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Nav links — desktop */}
+          {/* Nav links desktop */}
           <nav className="hidden md:flex items-center gap-6 py-2 border-t border-gray-100">
             {NAV_LINKS.map((link) => (
               <Link

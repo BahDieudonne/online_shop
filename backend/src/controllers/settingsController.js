@@ -1,4 +1,4 @@
-const Settings = require('../models/Settings');
+﻿const Settings = require('../models/Settings');
 const { successResponse, errorResponse } = require('../utils/apiResponse');
 
 const DEFAULTS = {
@@ -77,7 +77,7 @@ const DEFAULTS = {
   },
 };
 
-// GET /settings/:key — public
+// GET /settings/:key public
 exports.getSettings = async (req, res, next) => {
   try {
     const { key } = req.params;
@@ -92,7 +92,7 @@ exports.getSettings = async (req, res, next) => {
   }
 };
 
-// PUT /settings/:key — admin only
+// PUT /settings/:key admin only
 exports.updateSettings = async (req, res, next) => {
   try {
     const { key } = req.params;

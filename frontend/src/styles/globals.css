@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,7 +58,7 @@
     @apply text-gray-700 hover:text-brand-purple font-medium transition-colors duration-150;
   }
 
-  /* Admin form helpers — used in Settings, Marketing, etc. */
+  /* Admin form helpers used in Settings, Marketing, etc. */
   .label-text {
     @apply block text-sm font-medium text-gray-700 mb-1.5;
   }

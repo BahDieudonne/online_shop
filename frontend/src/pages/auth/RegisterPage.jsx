@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -31,7 +31,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <Helmet><title>Create Account — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Create Account CHANCELOR STORE</title></Helmet>
       <div className="min-h-screen bg-gradient-to-br from-navy-50 to-purple-50 flex items-center justify-center p-4 py-10">
         <div className="w-full max-w-md">
           <div className="text-center mb-6">

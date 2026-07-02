@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -88,7 +88,7 @@ const CheckoutPage = () => {
 
   return (
     <>
-      <Helmet><title>Checkout — CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Checkout CHANCELOR STORE</title></Helmet>
       <div className="container mx-auto px-4 py-8 max-w-5xl">
         <h1 className="font-display text-2xl font-bold text-navy-900 mb-6">{t('checkout.title')}</h1>
 
@@ -249,7 +249,7 @@ const CheckoutPage = () => {
                     disabled={loading}
                     className="btn-gold flex-1 py-3 font-bold"
                   >
-                    {loading ? 'Placing Order...' : `Place Order — ${formatCurrency(finalTotal)}`}
+                    {loading ? 'Placing Order...' : `Place Order ${formatCurrency(finalTotal)}`}
                   </button>
                 </div>
               </div>

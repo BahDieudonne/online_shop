@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+﻿import React, { useState, useRef } from 'react';
 import { PhotoIcon, LinkIcon, ArrowUpTrayIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Spinner from './Spinner';
 import api from '../../services/api';
@@ -24,7 +24,7 @@ const ImagePicker = ({ value, onChange, label, className = '' }) => {
       });
       const uploaded = Array.isArray(res.data?.data) ? res.data.data[0] : null;
       if (uploaded?.url) onChange(uploaded.url);
-      else setError('Upload failed — no URL returned');
+      else setError('Upload failed no URL returned');
     } catch {
       setError('Upload failed. Check Cloudinary settings in backend .env');
     } finally {

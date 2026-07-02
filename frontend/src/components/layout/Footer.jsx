@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, CheckCircleIcon, LockClosedIcon, ShieldCheckIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
@@ -119,7 +119,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Payment — dynamic based on admin settings */}
+          {/* Payment dynamic based on admin settings */}
           <div>
             <h4 className="font-semibold text-white mb-4">{t('footer.weAccept')}</h4>
             <div className="grid grid-cols-2 gap-2">

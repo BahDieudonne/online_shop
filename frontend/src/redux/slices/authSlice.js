@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+﻿import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from '../../services/authService';
 
 export const login = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
@@ -20,7 +20,7 @@ export const refreshToken = createAsyncThunk('auth/refresh', async (_, { rejectW
   catch (err) { return rejectWithValue(err); }
 });
 
-// Called once on app load — uses the httpOnly refresh cookie to restore the session
+// Called once on app load uses the httpOnly refresh cookie to restore the session
 export const checkAuth = createAsyncThunk('auth/check', async (_, { rejectWithValue }) => {
   try { return await authService.refreshToken(); }
   catch (err) { return rejectWithValue(null); }
@@ -30,7 +30,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
-    accessToken: null,       // lives in memory only — never localStorage
+    accessToken: null,       // lives in memory only never localStorage
     isLoading: false,
     isAuthChecked: false,    // true once checkAuth has completed (success or fail)
     isAuthenticated: false,
@@ -78,7 +78,7 @@ const authSlice = createSlice({
       .addCase(refreshToken.rejected, (state) => {
         state.user = null; state.accessToken = null; state.isAuthenticated = false;
       })
-      // checkAuth — silent session restore on page load
+      // checkAuth silent session restore on page load
       .addCase(checkAuth.pending, (state) => {
         state.isLoading = true;
       })

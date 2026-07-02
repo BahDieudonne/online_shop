@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <Helmet><title>Dashboard — Admin | CHANCELOR STORE</title></Helmet>
+      <Helmet><title>Dashboard Admin | CHANCELOR STORE</title></Helmet>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
