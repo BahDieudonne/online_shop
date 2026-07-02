@@ -32,6 +32,7 @@ const AboutPage          = lazy(() => import('./pages/static/AboutPage'));
 const ContactPage        = lazy(() => import('./pages/static/ContactPage'));
 const FAQPage            = lazy(() => import('./pages/static/FAQPage'));
 const BlogPage           = lazy(() => import('./pages/static/BlogPage'));
+const HelpPage           = lazy(() => import('./pages/static/HelpPage'));
 const ShippingPolicyPage = lazy(() => import('./pages/static/ShippingPolicyPage'));
 const ReturnPolicyPage   = lazy(() => import('./pages/static/ReturnPolicyPage'));
 const PrivacyPage        = lazy(() => import('./pages/static/PrivacyPage'));
@@ -110,6 +111,7 @@ function App() {
                 <Route path="about" element={<AboutPage />} />
                 <Route path="contact" element={<ContactPage />} />
                 <Route path="faq" element={<FAQPage />} />
+                <Route path="help" element={<HelpPage />} />
                 <Route path="blog" element={<BlogPage />} />
                 <Route path="shipping-policy" element={<ShippingPolicyPage />} />
                 <Route path="return-policy" element={<ReturnPolicyPage />} />
