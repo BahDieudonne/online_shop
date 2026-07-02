@@ -2,40 +2,44 @@
 const mongoose = require('mongoose');
 
 const orderItemSchema = new mongoose.Schema({
-  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  product:   { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
   variantId: { type: mongoose.Schema.Types.ObjectId },
-  name: { type: String, required: true },
-  image: { type: String },
-  variant: { type: String },              // "Black 128GB"
-  sku: { type: String },
-  price: { type: Number, required: true },
-  quantity: { type: Number, required: true, min: 1 },
-  subtotal: { type: Number, required: true },
+  name:      { type: String, required: true },
+  image:     { type: String },
+  variant:   { type: String },
+  sku:       { type: String },
+  price:     { type: Number, required: true },
+  quantity:  { type: Number, required: true, min: 1 },
+  subtotal:  { type: Number, required: true },
 });
 
 const trackingEventSchema = new mongoose.Schema({
-  status: { type: String, required: true },
-  message: { type: String },
-  location: { type: String },
+  status:    { type: String, required: true },
+  message:   { type: String },
+  location:  { type: String },
   timestamp: { type: Date, default: Date.now },
   updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 const orderSchema = new mongoose.Schema({
-  orderNumber: { type: String, unique: true },   // CHN-2024-000001
+  orderNumber: { type: String, unique: true },
 
-  customer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  guestEmail: { type: String },                  // guest checkout
+  customer:   { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  guestEmail: { type: String },
 
   items: [orderItemSchema],
 
   shippingAddress: {
-    fullName: { type: String, required: true },
-    phone: { type: String, required: true },
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    region: { type: String, required: true },
-    country: { type: String, default: 'Cameroon' },
+    fullName:  { type: String },
+    firstName: { type: String },
+    lastName:  { type: String },
+    phone:     { type: String },
+    street:    { type: String },
+    address:   { type: String },
+    city:      { type: String },
+    region:    { type: String },
+    country:   { type: String, default: 'Cameroon' },
+    notes:     { type: String },
   },
 
   billingAddress: {
@@ -44,65 +48,70 @@ const orderSchema = new mongoose.Schema({
   },
 
   pricing: {
-    subtotal: { type: Number, required: true },
-    shippingFee: { type: Number, default: 0 },
-    discount: { type: Number, default: 0 },
+    subtotal:       { type: Number, required: true },
+    shippingFee:    { type: Number, default: 0 },
+    discount:       { type: Number, default: 0 },
     couponDiscount: { type: Number, default: 0 },
-    tax: { type: Number, default: 0 },
-    total: { type: Number, required: true },
-    currency: { type: String, default: 'XAF' },
+    tax:            { type: Number, default: 0 },
+    total:          { type: Number, required: true },
+    currency:       { type: String, default: 'XAF' },
   },
 
-  coupon: { type: mongoose.Schema.Types.ObjectId, ref: 'Coupon' },
+  coupon:     { type: mongoose.Schema.Types.ObjectId, ref: 'Coupon' },
   couponCode: { type: String },
 
   payment: {
     method: {
       type: String,
-      enum: ['stripe', 'paypal', 'mtn_momo', 'orange_money', 'bank_transfer', 'cash_on_delivery'],
-      required: true,
+      enum: ['stripe', 'paypal', 'mtn_momo', 'orange_money', 'bank_transfer', 'cash_on_delivery', 'manual'],
+      default: 'manual',
     },
-    status: { type: String, enum: ['pending', 'paid', 'failed', 'refunded'], default: 'pending' },
+    status:        { type: String, enum: ['pending', 'paid', 'failed', 'refunded'], default: 'pending' },
     transactionId: { type: String },
-    paidAt: { type: Date },
-    mobileNumber: { type: String },       // MTN / Orange
-    reference: { type: String },
+    paidAt:        { type: Date },
+    mobileNumber:  { type: String },
+    reference:     { type: String },
   },
 
   status: {
     type: String,
-    enum: ['pending', 'confirmed', 'processing', 'shipped', 'out_for_delivery', 'delivered', 'cancelled', 'refunded', 'return_requested', 'returned'],
-    default: 'pending',
+    enum: [
+      'pending_payment', 'confirmed', 'processing', 'shipped',
+      'out_for_delivery', 'delivered', 'cancelled', 'refunded',
+      'return_requested', 'returned',
+    ],
+    default: 'pending_payment',
   },
 
+  isPreOrder: { type: Boolean, default: false },
+
   shipping: {
-    carrier: { type: String },
-    trackingNumber: { type: String },
-    trackingUrl: { type: String },
+    carrier:           { type: String },
+    trackingNumber:    { type: String },
+    trackingUrl:       { type: String },
     estimatedDelivery: { type: Date },
-    shippedAt: { type: Date },
-    deliveredAt: { type: Date },
+    shippedAt:         { type: Date },
+    deliveredAt:       { type: Date },
   },
 
   trackingHistory: [trackingEventSchema],
 
-  notes: { type: String },               // Customer notes
-  adminNotes: { type: String },          // Internal notes
+  notes:        { type: String },
+  adminNotes:   { type: String },
   cancelReason: { type: String },
   refundReason: { type: String },
   refundAmount: { type: Number },
-  refundedAt: { type: Date },
+  refundedAt:   { type: Date },
 
-  invoiceUrl: { type: String },
+  invoiceUrl:  { type: String },
   processedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
   loyaltyPointsEarned: { type: Number, default: 0 },
-  loyaltyPointsUsed: { type: Number, default: 0 },
+  loyaltyPointsUsed:   { type: Number, default: 0 },
 }, {
   timestamps: true,
 });
 
-// Auto-generate order number before save
 orderSchema.pre('save', async function (next) {
   if (!this.orderNumber) {
     const count = await this.constructor.countDocuments();

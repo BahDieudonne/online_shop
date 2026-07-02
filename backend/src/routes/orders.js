@@ -21,5 +21,6 @@ router.get('/', ctrl.getOrders);
 router.get('/:id', ctrl.getOrder);
 router.post('/:id/cancel', ctrl.cancelOrder);
 router.patch('/:id/status', authorize('staff'), ctrl.updateOrderStatus);
+router.patch('/:id/notes', authorize('staff'), ctrl.updateOrderNotes);
 
 module.exports = router;

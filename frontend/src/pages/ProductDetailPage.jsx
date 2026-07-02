@@ -146,8 +146,8 @@ const ProductDetailPage = () => {
                 </div>
               )}
               {stock === 0 && (
-                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                  <Badge variant="dark" size="lg">Out of Stock</Badge>
+                <div className="absolute top-4 right-4">
+                  <Badge variant="warning" size="lg">Pre-order</Badge>
                 </div>
               )}
               {/* Nav arrows */}
@@ -244,10 +244,10 @@ const ProductDetailPage = () => {
               <div className="flex items-center border border-gray-300 rounded-xl overflow-hidden">
                 <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-2.5 hover:bg-gray-100 transition-colors text-lg font-bold">−</button>
                 <span className="px-6 py-2.5 font-semibold border-x border-gray-300">{quantity}</span>
-                <button onClick={() => setQuantity((q) => Math.min(stock, q + 1))} className="px-4 py-2.5 hover:bg-gray-100 transition-colors text-lg font-bold">+</button>
+                <button onClick={() => setQuantity((q) => Math.min(stock > 0 ? stock : 99, q + 1))} className="px-4 py-2.5 hover:bg-gray-100 transition-colors text-lg font-bold">+</button>
               </div>
-              <span className={`text-sm font-medium ${stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                {stock > 0 ? `${stock} in stock` : 'Out of stock'}
+              <span className={`text-sm font-medium ${stock > 0 ? 'text-green-600' : 'text-purple-600'}`}>
+                {stock > 0 ? `${stock} in stock` : 'Pre-order available'}
               </span>
             </div>
 
@@ -255,18 +255,16 @@ const ProductDetailPage = () => {
             <div className="flex gap-3">
               <button
                 onClick={handleAddToCart}
-                disabled={stock === 0}
-                className="flex-1 btn-primary flex items-center justify-center gap-2 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 btn-primary flex items-center justify-center gap-2 py-3"
               >
                 <ShoppingCartIcon className="w-5 h-5" />
-                Add to Cart
+                {stock === 0 ? 'Pre-order' : 'Add to Cart'}
               </button>
               <button
                 onClick={handleBuyNow}
-                disabled={stock === 0}
-                className="flex-1 btn-gold flex items-center justify-center gap-2 py-3 font-bold disabled:opacity-50"
+                className="flex-1 btn-gold flex items-center justify-center gap-2 py-3 font-bold"
               >
-                Buy Now
+                {stock === 0 ? 'Pre-order Now' : 'Buy Now'}
               </button>
               <button
                 onClick={handleWishlist}
@@ -278,6 +276,12 @@ const ProductDetailPage = () => {
 
             {/* Trust signals */}
             <div className="bg-gray-50 rounded-xl p-4 space-y-2">
+              {stock === 0 && (
+                <div className="flex items-center gap-2 text-sm text-purple-700 font-medium pb-1 border-b border-gray-200 mb-1">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  Pre-order — contact us after placing to arrange payment and delivery date
+                </div>
+              )}
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <TruckIcon className="w-4 h-4 text-green-500" />
                 Free delivery on orders over 50,000 FCFA
