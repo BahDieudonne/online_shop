@@ -149,7 +149,14 @@ export default function AdminContent() {
     setForm(blank); setEditId(null); setShowModal(true);
   };
 
-  const openEdit = (item) => { setForm({ ...item }); setEditId(item._id); setShowModal(true); };
+  const openEdit = (item) => {
+    // Blog posts store coverImage as { url } object — flatten to string for the form
+    const normalised = { ...item };
+    if (tab === 'blog' && item.coverImage?.url) normalised.coverImage = item.coverImage.url;
+    setForm(normalised);
+    setEditId(item._id);
+    setShowModal(true);
+  };
 
   const save = async () => {
     try {
@@ -215,8 +222,8 @@ export default function AdminContent() {
     <div className="space-y-3">
       {items.map(post => (
         <div key={post._id} className="bg-white rounded-xl border border-gray-200 p-4 flex gap-4">
-          {post.coverImage && (
-            <img src={post.coverImage} alt="" className="w-20 h-16 rounded-lg object-cover border flex-shrink-0" />
+          {(post.coverImage?.url || post.coverImage) && (
+            <img src={post.coverImage?.url || post.coverImage} alt="" className="w-20 h-16 rounded-lg object-cover border flex-shrink-0" />
           )}
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2">

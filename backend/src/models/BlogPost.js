@@ -9,7 +9,7 @@ const blogPostSchema = new mongoose.Schema({
   coverImage: { url: String, publicId: String },
   category: { type: String },
   tags: [{ type: String }],
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  author: { type: String, default: 'CHANCELOR STORE' },
   status: { type: String, enum: ['draft', 'published', 'archived'], default: 'draft' },
   publishedAt: { type: Date },
   views: { type: Number, default: 0 },

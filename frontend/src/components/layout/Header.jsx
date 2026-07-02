@@ -44,10 +44,11 @@ const Header = () => {
 
   // NAV_LINKS defined inside component so it reacts to language changes
   const NAV_LINKS = [
-    { label: t('nav.home'), path: '/' },
-    { label: t('nav.shop'), path: '/shop' },
-    { label: t('nav.blog'), path: '/blog' },
-    { label: t('nav.about'), path: '/about' },
+    { label: t('nav.home'),    path: '/' },
+    { label: t('nav.shop'),    path: '/shop' },
+    { label: t('nav.blog'),    path: '/blog' },
+    { label: t('nav.faq'),     path: '/faq' },
+    { label: t('nav.about'),   path: '/about' },
     { label: t('nav.contact'), path: '/contact' },
   ];
 

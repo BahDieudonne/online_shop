@@ -55,6 +55,8 @@ app.use('/api/analytics', require('./src/routes/analytics'));
 app.use('/api/users', require('./src/routes/users'));
 app.use('/api/service-reviews', require('./src/routes/serviceReviews'));
 app.use('/api/settings', require('./src/routes/settings'));
+app.use('/api/content',  require('./src/routes/content'));
+app.use('/api/blog',     require('./src/routes/blog'));
 
 // Health check
 app.get('/health', (req, res) => res.json({
